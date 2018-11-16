@@ -38,8 +38,7 @@ jobs:
     environment:
       HEROKU_APP: "cinewebpw"
     steps:
-      - attach_workspace:
-          at: ~/app_build
+      - checkout
       - run:
           name: Deploy Master to Heroku
           command: |
