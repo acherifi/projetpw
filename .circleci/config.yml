@@ -53,3 +53,6 @@ workflows:
       - unit_test:
           requires:
             - build
+      - deploy:
+          requires:
+            - unit_test
