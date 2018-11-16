@@ -1,0 +1,44 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/node:8
+    working_directory: ~/app_build
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+          - v1-dependencies-{{ checksum "package.json" }}
+          - v1-dependencies-
+      - run: npm install
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "package.json" }}
+      - persist_to_workspace:
+          root: ./
+          paths:
+            - src/
+            - resources/
+            - package.json
+            - node_modules/
+            - Dockerfile
+            - docker-compose.yml
+  unit_test:
+    working_directory: ~/app_build
+    docker:
+      - image: circleci/node:8
+    steps:
+      - attach_workspace:
+          at: ~/app_build
+      - run: npm test
+      - store_test_results:
+
+workflows:
+  version: 2
+  main:
+    jobs:
+      - build
+      - unit_test:
+          requires:
+            - build
