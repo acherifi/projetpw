@@ -1,0 +1,13 @@
+{
+    "extends": "google",
+    "env": {
+        "browser": true
+    },
+    "rules": {
+        "max-len": ["error", {"code": 160}]
+    },
+    "parserOptions": {
+        "ecmaVersion": 2017,
+        "sourceType": "module"
+    }
+ }
