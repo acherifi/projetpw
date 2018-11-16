@@ -32,7 +32,6 @@ jobs:
       - attach_workspace:
           at: ~/app_build
       - run: npm test
-      - store_test_results:
 
 workflows:
   version: 2
