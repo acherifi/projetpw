@@ -3,7 +3,7 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Liens utiles
-Déploiement de l'app: https://cinewebpw.herokuapp.com
+Déploiement de l'app: https://cinewebpw.herokuapp.com <br>
 Base de donnée MongoDB: ds061839.mlab.com:61839/cineweb 
 
 ## Available Scripts
