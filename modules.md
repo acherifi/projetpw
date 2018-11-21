@@ -9,6 +9,7 @@
 - Composant des 3 pages 
 - Composant d'affichage d'un film (boutons, texte, image, horaire, etc...)
 - Liste d'affiche des films (utilise le composant de film)
+- Module API indépendant du reste
 
 
 ## Objets
