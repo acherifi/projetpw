@@ -11,6 +11,7 @@ jobs:
           - v1-dependencies-{{ checksum "package.json" }}
           - v1-dependencies-
       - run: npm install --production
+      - run: npm install -g @angular/cli
       - save_cache:
           paths:
             - node_modules
