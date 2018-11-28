@@ -1,0 +1,19 @@
+language: node_js
+services:
+- docker
+node_js:
+- '8'
+install:
+- npm install --production
+- npm install -g @angular/cli
+before_script:
+- npm build
+script:
+- npm test
+deploy:
+  provider: heroku
+  api_key:
+    secure: vCanPIE1CiTHk/S2bt0do5X/5pbKyg5wwgpw+W4ZbvRDoQl5GQuaOXpXcWEiDKNrgQJt54BfspBWzSXCvRETf6twAIeuKVL8wGSiBAM89JkU8H4njnTJDMq0tX6ixOhfL2NGNuEIfwTprf6pFsr+m3YuJW1QGUL6WOikOnYgXsd0humjcUKxYJxe3hRRLz4bQja8ut0M9E8+nWvMrbinLi18UP6uq+6MJeRS0KbJZi7FSXJ2v4UBcIh9LsIkInv2E/eRfA4iZ7VXPCPIFgp1hOZuFEnIaJFaN4iFyue2EquM57NhLmTp+1SA4hZaF8KtqZD3i1wUsXViyT8G5Osu6I9qo3wl4WB1zswmGBRCOWiICCgDbIuwfHNj2kYJxJNjTsbFTq3upwfuKRme6Cp5SQiP5lzpZ2d0WzN1nsZvoz+6+YKd0aTUxUJnDieQdLrVdgoYquJL65GAckrsuik9p+05cDQAVVMKDU+2fZ2k/1uqq/2yUmiYBcGeC89b5zsDrxv8AGIkVU6j2aaeNOWgqKxu8tu7BEX0I5Vjn+SJfpZFypuuIpKMpD9VjwvQgK/irGxlT/gDzyXNHab45F6s9Kldpo2VNXw6ngyT4J3RXMSM93uxQMFCYiwV9IJHy81Pvn8TjMlDIU4WGT4ZxgXFfEZ+XdXS1nldAYIKsvC/SSk=
+  app: cinewebpw
+  on:
+    repo: acherifi/projetpw
