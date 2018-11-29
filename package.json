@@ -28,11 +28,13 @@
     "mongodb": "3.1.10",
     "rxjs": "~6.3.3",
     "zone.js": "~0.8.26",
-    "@angular/cli": "~7.0.6"
+    "@angular/cli": "~7.0.6",
+    "@angular/compiler-cli": "~7.0.0",
+    "typescript": "~3.1.6",
+    "express": "4.16.4"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.10.0",
-    "@angular/compiler-cli": "~7.0.0",
     "@angular/language-service": "~7.0.0",
     "@types/node": "~8.9.4",
     "@types/jasmine": "~2.8.8",
@@ -48,7 +50,6 @@
     "protractor": "~5.4.0",
     "ts-node": "~7.0.0",
     "tslint": "~5.11.0",
-    "typescript": "~3.1.6",
     "husky": "1.1.4",
     "webpack-dev-server": "3.1.10"
   },
@@ -56,6 +57,10 @@
     "hooks": {
       "pre-commit": "npm run lint"
     }
+  },
+  "engines": {
+    "node": "8.11.3",
+    "npm": "6.4.1"
   },
   "browserslist": [
     ">0.2%",
