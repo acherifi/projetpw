@@ -30,6 +30,7 @@
     "zone.js": "~0.8.26",
     "@angular/cli": "~7.0.6",
     "@angular/compiler-cli": "~7.0.0",
+    "@angular/flex-layout": "7.0.0-beta.19",
     "typescript": "~3.1.6",
     "express": "4.16.4"
   },
