@@ -7,6 +7,7 @@ import { MatToolbarModule, MatButtonModule, MatIconModule, MatCardModule } from 
 import {HttpClientModule} from '@angular/common/http';
 import { NavbarComponent } from './navbar/navbar.component';
 import { MoviecardComponent } from './moviecard/moviecard.component';
+import {FlexLayoutModule} from '@angular/flex-layout';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { MoviecardComponent } from './moviecard/moviecard.component';
     MatButtonModule,
     MatIconModule,
     HttpClientModule,
-    MatCardModule
+    MatCardModule,
+    FlexLayoutModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

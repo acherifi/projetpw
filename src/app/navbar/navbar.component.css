@@ -9,3 +9,7 @@ button{
   color: white;
   margin-right: 2%;
 }
+
+mat-toolbar{
+  margin-bottom: 2%;
+}

@@ -9,9 +9,9 @@ import { DomSanitizer } from '@angular/platform-browser';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
-  iconPath= 'assets/clap.svg';
+  iconPath = 'assets/clap.svg';
   buttons: String[] = ['Connexion', 'Inscription'];
-  
+
   constructor(iconRegistry: MatIconRegistry, sanitizer: DomSanitizer) {
     iconRegistry.addSvgIcon(
         'clap',
@@ -19,6 +19,5 @@ export class NavbarComponent implements OnInit {
   }
 
   ngOnInit() {
-    
   }
 }
