@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { APIToolService } from '../services/APIToolService';
+import { SearchParametersService} from '../services/SearchParametersService'; 
 
 @Component({
   selector: 'app-root',
