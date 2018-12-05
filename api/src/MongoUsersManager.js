@@ -1,3 +1,4 @@
+const uniqueID = () => require('uniqid')('cw-');
 module.exports = class MongoUsersManager {
   constructor(database) {
     this.database = database;
@@ -5,7 +6,7 @@ module.exports = class MongoUsersManager {
   }
   addUser(mail, pwd) {
     if (!this.userExists(mail, pwd)) {
-      this.collection.insertMany([{id: '', email: mail, password: pwd, idwatch: ''}]);
+      this.collection.insertMany([{id: uniqueID(), email: mail, password: pwd, idwatch: ''}]);
     }
   }
   userExists(email, password) {
