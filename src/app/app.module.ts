@@ -8,6 +8,7 @@ import {HttpClientModule} from '@angular/common/http';
 import { NavbarComponent } from './navbar/navbar.component';
 import { MoviecardComponent } from './moviecard/moviecard.component';
 import {FlexLayoutModule} from '@angular/flex-layout';
+import {TextFieldModule} from '@angular/cdk/text-field';
 
 @NgModule({
   declarations: [
@@ -24,8 +25,10 @@ import {FlexLayoutModule} from '@angular/flex-layout';
     HttpClientModule,
     MatCardModule,
     FlexLayoutModule,
+    TextFieldModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}
