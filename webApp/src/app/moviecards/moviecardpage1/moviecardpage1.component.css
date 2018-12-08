@@ -1,3 +1,19 @@
 mat-card{
     margin-bottom: 2%;
 }
+
+.mat-card-header .mat-card-title {
+    max-width: 30em;
+    overflow: hidden;
+}
+
+p{
+    min-height:10em;
+    max-height:10em;
+    overflow:auto;
+}
+
+button{
+    background-color: #96BAF2;
+    color: white;
+}

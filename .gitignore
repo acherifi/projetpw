@@ -6,7 +6,8 @@
 /out-tsc
 
 # dependencies
-/node_modules
+webApp/node_modules
+webApp/package-lock.json
 
 # IDEs and editors
 /.idea
