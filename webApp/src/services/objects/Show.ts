@@ -1,3 +1,3 @@
-export class Show{
-  
+export class Show {
+
 }

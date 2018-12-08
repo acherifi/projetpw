@@ -2,22 +2,22 @@ import { UserService } from './UserService';
 import { MovieService } from './MovieService';
 import { WatchlistService } from './WatchlistService';
 
-export class APIToolService{
+export class APIToolService {
   private watchlistService: WatchlistService;
   private userService: UserService;
   private movieService: MovieService;
-  constructor(){
+  constructor() {
     this.watchlistService = new WatchlistService();
     this.userService = new UserService();
     this.movieService = new MovieService();
   }
-  getWatchListService():WatchlistService{
+  getWatchListService(): WatchlistService {
     return this.watchlistService;
   }
-  getUserService():UserService{
+  getUserService(): UserService {
     return this.userService;
   }
-  getMovieService():MovieService{
+  getMovieService(): MovieService {
     return this.movieService;
   }
 }

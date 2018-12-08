@@ -1,3 +1,3 @@
-export interface IDataMoviePage{
-  getTitle():string;
+export interface IDataMoviePage {
+  getTitle(): string;
 }

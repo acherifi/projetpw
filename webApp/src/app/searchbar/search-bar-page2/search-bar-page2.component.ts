@@ -12,13 +12,13 @@ import { IParam } from '../../../services/objects/searchParameters/IParam';
 export class SearchBarPage2Component extends AbstractSearchBar implements OnInit {
 
   update(movies: Movie[]) {
-    //TODO
+    // TODO
   }
   addParamToService(param: IParam) {
-    //TODO
+    // TODO
   }
 
-  constructor(private searchParametersService:SearchParametersService) {
+  constructor(private searchParametersService: SearchParametersService) {
     super();
   }
 

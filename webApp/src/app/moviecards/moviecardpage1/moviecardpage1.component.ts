@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import {AbstractMovieCard} from '../AbstractMovieCard';
 
 @Component({
@@ -8,7 +8,9 @@ import {AbstractMovieCard} from '../AbstractMovieCard';
 })
 export class MovieCardPage1Component extends AbstractMovieCard implements OnInit {
 
-  dataButtons:string[];
+  dataButtons: string[];
+  @Input() data;
+
   ngOnInit() {
   }
 

@@ -7,7 +7,7 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class SelectNamesComponent implements OnInit {
   @Input() handlerChange;
-  @Input() data:string[];
+  @Input() data: string[];
   constructor() { }
 
   ngOnInit() {

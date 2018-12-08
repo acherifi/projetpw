@@ -1,4 +1,4 @@
-export interface IParam{
-  getKey():string;
-  getValue():string;
+export interface IParam {
+  getKey(): string;
+  getValue(): string;
 }

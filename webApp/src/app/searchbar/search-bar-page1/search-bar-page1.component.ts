@@ -10,17 +10,17 @@ import { IParam } from '../../../services/objects/searchParameters/IParam';
   styleUrls: ['./search-bar-page1.component.css']
 })
 export class SearchBarPage1Component extends AbstractSearchBar implements OnInit {
-  @Input() dataLastWeeks:string[];
+  @Input() dataLastWeeks: string[];
   update(movies: Movie[]) {
-    //TODO
+    // TODO
   }
   addParamToService(param: IParam) {
-    //TODO
+    // TODO
   }
-  onChangeWeeks(result){
-    //TODO handler du choix des semaines 
+  onChangeWeeks(result) {
+    // TODO handler du choix des semaines
   }
-  constructor(private searchParametersService:SearchParametersService) {
+  constructor(private searchParametersService: SearchParametersService) {
     super();
   }
 

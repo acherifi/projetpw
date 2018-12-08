@@ -1,3 +1,3 @@
-export class Watchlist{
-  
+export class Watchlist {
+
 }

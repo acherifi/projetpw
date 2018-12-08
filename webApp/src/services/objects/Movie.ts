@@ -1,9 +1,9 @@
 import { Theater } from './Theater';
-export class Movie{
-  getTitle():string{
+export class Movie {
+  getTitle(): string {
     return null;
   }
-  getTheaters():Theater[]{
+  getTheaters(): Theater[] {
     return null;
   }
 }

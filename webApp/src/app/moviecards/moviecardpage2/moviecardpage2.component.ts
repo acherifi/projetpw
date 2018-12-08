@@ -8,7 +8,7 @@ import {AbstractMovieCard} from '../AbstractMovieCard';
 })
 export class MovieCardPage2Component extends AbstractMovieCard implements OnInit {
 
-  dataButton:string[];
+  dataButton: string[];
   ngOnInit() {
   }
 
