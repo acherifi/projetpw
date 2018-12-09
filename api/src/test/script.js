@@ -82,15 +82,22 @@ function testRemoveMovieWL() {
 }
 document.getElementById('testGetMovie').addEventListener('click', testGetMovie);
 function testGetMovie() {
+  const jsonToSend = {
+    'latitude': 47.017,
+    'longitude': 2.3499,
+    'radius': 50,
+  };
   $.ajax({
-    url: 'http://localhost:4000/movies/1',
+    url: 'http://localhost:4000/movies/233998',
     type: 'GET',
+    data: (jsonToSend),
+    contentType: 'application/json',
     success: function(data, status) {
       console.log(data);
       document.getElementById('getresult').innerHTML = JSON.stringify( data);
     },
     error: function(request, msg, error) {
-      alert('error get wl');
+      console.log('error get wl');
     },
   });
 }
