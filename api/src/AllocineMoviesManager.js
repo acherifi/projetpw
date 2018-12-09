@@ -9,7 +9,7 @@ module.exports = class AllocineMoviesManager {
   async getMovieById(movieId, parametersShowTimes) {
     const resultFromAllocine = await this.doRequest('movie?'+await this.getPartnerParameter()+
     '&code='+movieId+'&profile=large&mediafmt=mp4-lc&format=json&filter=movie&striptags=synopsis');
-    const movie = await this.formatOneMovie(resultFromAllocine);
+    const movie = await this.formatOneMovie(resultFromAllocine.movie);
     let resultShowTimeFromAllocine = undefined;
     if (parametersShowTimes !== undefined) {
       resultShowTimeFromAllocine = await this.doRequest('showtimelist?'+await this.getPartnerParameter()+
@@ -18,6 +18,18 @@ module.exports = class AllocineMoviesManager {
     }
     const showTime = await this.formatShowTime(resultShowTimeFromAllocine);
     return [movie, showTime];
+  }
+  async getRecentMoviesInTheaters(interval) {
+    const allMovies = [];
+    if (interval === undefined) {
+      return allMovies;
+    }
+    const resultFromAllocine = await this.doRequest('movielist?'+await this.getPartnerParameter()+
+  '&count='+ interval[1] +'&format=json&filter=nowshowing&order=theatercount');
+    for (let i = interval[0]; i < resultFromAllocine.feed.movie.length && i < interval[1]; ++i) {
+      await allMovies.push(await this.getMovieById(resultFromAllocine.feed.movie[i].code, undefined));
+    }
+    return allMovies;
   }
   async doRequest(toAddtoUrl) {
     console.log(this.urlAllocine+toAddtoUrl);
@@ -32,28 +44,32 @@ module.exports = class AllocineMoviesManager {
   async getPartnerParameter() {
     return await 'partner='+this.partnerKey;
   }
-  async formatOneMovie(allocineResult) {
-    if (allocineResult.movie === undefined) {
+  async formatOneMovie(movieAllocine) {
+    if (movieAllocine === undefined) {
       return {};
     } else {
-      let title = allocineResult.movie.originalTitle;
+      let title = movieAllocine.originalTitle;
       if (title.includes('Google play')) {
-        title = allocineResult.movie.media[0].title.replace(': Affiche', '');
+        if (movieAllocine.media !== undefined) {
+          title = movieAllocine.media[0].title.replace(': Affiche', '');
+        } else {
+          title = 'titre';
+        }
       }
       const genres = [];
-      for (let i = 0; i < allocineResult.movie.genre.length; ++i) {
-        genres.push(allocineResult.movie.genre[i].$);
+      for (let i = 0; i < movieAllocine.genre.length; ++i) {
+        genres.push(movieAllocine.genre[i].$);
       }
       const result = {infomovie: {
-        id: allocineResult.movie.code,
+        id: movieAllocine.code,
         title: title,
         genres: genres,
-        directors: await this.getPeople(allocineResult, this.codeRoleDirector),
-        actors: await this.getPeople(allocineResult, this.codeRoleActor),
-        synopsis: allocineResult.movie.synopsis,
-        releasedate: allocineResult.movie.release.releaseDate,
-        poster: allocineResult.movie.media[0].thumbnail.href,
-        rate: await this.getRate(allocineResult),
+        directors: await this.getPeople(movieAllocine, this.codeRoleDirector),
+        actors: await this.getPeople(movieAllocine, this.codeRoleActor),
+        synopsis: movieAllocine.synopsis,
+        releasedate: movieAllocine.release.releaseDate,
+        poster: movieAllocine.media[0].thumbnail.href,
+        rate: await this.getRate(movieAllocine),
       }};
       return result;
     }
@@ -62,14 +78,16 @@ module.exports = class AllocineMoviesManager {
     const theaters = [];
     if (allocineResult !== undefined) {
       const theaterShowtimes = allocineResult.feed.theaterShowtimes;
-      for (let i = 0; i < theaterShowtimes.length; ++i) {
-        const city = theaterShowtimes[i].place.theater.city;
-        const name = theaterShowtimes[i].place.theater.name;
-        theaters.push({
-          'city': city,
-          'name': name,
-          'filmshows': await this.formatMovieShowTimes(theaterShowtimes[i].movieShowtimes),
-        });
+      if (theaterShowtimes !== undefined) {
+        for (let i = 0; i < theaterShowtimes.length; ++i) {
+          const city = theaterShowtimes[i].place.theater.city;
+          const name = theaterShowtimes[i].place.theater.name;
+          theaters.push({
+            'city': city,
+            'name': name,
+            'filmshows': await this.formatMovieShowTimes(theaterShowtimes[i].movieShowtimes),
+          });
+        }
       }
     }
 
@@ -101,18 +119,20 @@ module.exports = class AllocineMoviesManager {
     }
     return result;
   }
-  async getPeople(allocineResult, codeRole) {
+  async getPeople(movieAllocine, codeRole) {
     const res = [];
-    for (let i = 0; i < allocineResult.movie.castMember.length; ++i) {
-      if (allocineResult.movie.castMember[i].activity.code === codeRole) {
-        await res.push(allocineResult.movie.castMember[i].person.name);
+    if (movieAllocine.castMember !== undefined) {
+      for (let i = 0; i < movieAllocine.castMember.length; ++i) {
+        if (movieAllocine.castMember[i].activity.code === codeRole) {
+          await res.push(movieAllocine.castMember[i].person.name);
+        }
       }
     }
     return res;
   }
-  async getRate(allocineResult) {
-    const pressRate = allocineResult.movie.statistics.pressRating;
-    const userRating = allocineResult.movie.statistics.userRating;
+  async getRate(movieAllocine) {
+    const pressRate = movieAllocine.statistics.pressRating;
+    const userRating = movieAllocine.statistics.userRating;
     return (pressRate + userRating)/2;
   }
 };

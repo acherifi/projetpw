@@ -88,7 +88,26 @@ function testGetMovie() {
     'radius': 50,
   };
   $.ajax({
-    url: 'http://localhost:4000/movies/233998',
+    url: 'http://localhost:4000/movies/244560',
+    type: 'GET',
+    data: (jsonToSend),
+    contentType: 'application/json',
+    success: function(data, status) {
+      console.log(data);
+      document.getElementById('getresult').innerHTML = JSON.stringify( data);
+    },
+    error: function(request, msg, error) {
+      console.log('error get wl');
+    },
+  });
+}
+document.getElementById('testGetRecentMovies').addEventListener('click', testGetRecentMovies);
+function testGetRecentMovies() {
+  const jsonToSend = {
+    'interval': [0, 0],
+  };
+  $.ajax({
+    url: 'http://localhost:4000/movies/',
     type: 'GET',
     data: (jsonToSend),
     contentType: 'application/json',
