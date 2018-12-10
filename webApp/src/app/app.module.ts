@@ -18,6 +18,9 @@ import { SearchBarPage2Component } from './searchbar/search-bar-page2/search-bar
 import { SearchBarPage3Component } from './searchbar/search-bar-page3/search-bar-page3.component';
 import { SelectNamesComponent } from './searchbar/searchtools/select-names/select-names.component';
 import { SelectNumbersComponent } from './searchbar/searchtools/select-numbers/select-numbers.component';
+import {MatGridListModule} from '@angular/material/grid-list';
+import {MatDialogModule} from '@angular/material/dialog';
+import { MovieDialogComponent } from './movie-dialog/movie-dialog.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +37,7 @@ import { SelectNumbersComponent } from './searchbar/searchtools/select-numbers/s
     SearchBarPage3Component,
     SelectNamesComponent,
     SelectNumbersComponent,
+    MovieDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -44,6 +48,11 @@ import { SelectNumbersComponent } from './searchbar/searchtools/select-numbers/s
     HttpClientModule,
     MatCardModule,
     FlexLayoutModule,
+    MatGridListModule,
+    MatDialogModule,
+  ],
+  entryComponents: [
+    MovieDialogComponent
   ],
   providers: [],
   bootstrap: [AppComponent]

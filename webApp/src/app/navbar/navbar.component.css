@@ -8,6 +8,7 @@ button{
   background-color: #96BAF2;
   color: white;
   margin-right: 2%;
+  border-radius: 100px;
 }
 
 mat-toolbar{

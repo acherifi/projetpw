@@ -1,0 +1,25 @@
+img{
+  max-width:25%;
+  border-radius: 20px;
+}
+
+div.infos{
+  display: inline-flex;
+  max-height: 400px;
+}
+
+div.infosContainer{
+  margin-left: 3%;
+}
+
+p.textInfos{
+  max-height: 400px;
+  overflow: auto;
+  margin-top: 0;
+}
+
+button{
+  border-radius: 100px;
+  background-color: #96BAF2;
+  color: white;
+}

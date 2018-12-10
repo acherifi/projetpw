@@ -1,11 +1,6 @@
-<div fxLayout="column">
-    <app-navbar fxLayout="row" ></app-navbar>
-    <div fxLayout="row wrap" fxLayout.lt-sm="column" fxLayoutGap="2%">
-        <ng-container *ngFor="let d of cards;">
-            <app-moviecardpage1 
-            fxFlex="0 1 calc(25% - 2%)"
-            fxFlex.lt-md="0 1 calc(33.3% - 2%)" 
-            [data]="d"></app-moviecardpage1>
-        </ng-container>
+<div>
+    <app-navbar></app-navbar>
+    <div>
+        <app-moviecardpage1></app-moviecardpage1>
     </div>
 </div>
