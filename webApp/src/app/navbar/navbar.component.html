@@ -6,7 +6,7 @@
     <span class="example-fill-remaining-space"></span>
 
     <div>
-      <button mat-flat-button *ngFor="let button of buttons">
+      <button mat-flat-button *ngFor="let button of buttons" (click)="tempoTestAPI()">
         {{button}}
       </button>
     </div> 

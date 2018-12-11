@@ -1,4 +1,4 @@
 export interface IParam {
-  getKey(): string;
-  getValue(): string;
+  getKey(): String;
+  getValue(): String;
 }
