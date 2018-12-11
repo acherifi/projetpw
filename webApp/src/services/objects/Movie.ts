@@ -24,11 +24,11 @@ export class Movie {
     let res = '';
     res += this.id + ': ' + this.title + ' ; ' + this.releaseDate + ' ; ' + this.synopsis + ' ; ' + this.posterLink + ' ; ';
     res += ' actors: ';
-    await this.actors.map(x => res += x + ' , ');
+    await this.actors.forEach(x => res += x + ' , ');
     res += ' directors: ';
-    await this.directors.map(x => res += x + ' , ');
+    await this.directors.forEach(x => res += x + ' , ');
     res += ' genres: ';
-    await this.genres.map(x => res += x + ' , ');
+    await this.genres.forEach(x => res += x + ' , ');
     res += ' rate: ' + this.rate;
     res += ' theaters: ';
     for (let i = 0; i < this.theaters.length; ++i) {
@@ -39,16 +39,16 @@ export class Movie {
   private async fillData(jsonResult) {
     await console.log(jsonResult);
     const theaters = [];
-    await jsonResult.infoshowtime.theaters.map(async x => {
+    await jsonResult.infoshowtime.theaters.forEach(async x => {
       const tempoTheater = await new Theater();
       await tempoTheater.init(x);
       await theaters.push(tempoTheater);
     });
     this.theaters = theaters;
 
-    this.actors = await this.mapFillData(jsonResult.infomovie.actors);
-    this.directors = await this.mapFillData(jsonResult.infomovie.directors);
-    this.genres = await this.mapFillData(jsonResult.infomovie.genres);
+    this.actors = await this.forEachFillData(jsonResult.infomovie.actors);
+    this.directors = await this.forEachFillData(jsonResult.infomovie.directors);
+    this.genres = await this.forEachFillData(jsonResult.infomovie.genres);
     this.id = jsonResult.infomovie.id;
     this.posterLink = jsonResult.infomovie.poster;
     this.synopsis = jsonResult.infomovie.synopsis;
@@ -58,9 +58,9 @@ export class Movie {
     const tempoDate = await jsonResult.infomovie.releasedate.split('-');
     this.releaseDate = await new Date(tempoDate[0], tempoDate[1], tempoDate[2]);
   }
-  private async mapFillData(array) {
+  private async forEachFillData(array) {
     const tempo = [];
-    await array.map(async x => await tempo.push(x));
+    await array.forEach(async x => await tempo.push(x));
     return tempo;
   }
 }

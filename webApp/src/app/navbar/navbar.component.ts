@@ -30,8 +30,9 @@ export class NavbarComponent implements OnInit {
       this.tempoTest = /*await ((await new MovieService()).
       getMovieByIdWithShowTimes(244560,[await new ParamLatitude('50'),
       await new ParamLongitude('2'), await new ParamRadius('100')]));*/
-      ((await new MovieService()).getRecentMovies(new ParamInterval('[0, 10]')));
-      await console.log(await this.tempoTest.toString());
+      await ((await new MovieService()).getRecentMovies(new ParamInterval('[0, 10]')));
+      await console.log('AH: ');
+      await this.tempoTest.forEach(async x => await console.log(await x.toString()));
     } else {
       await console.log(await this.tempoTest.toString());
 

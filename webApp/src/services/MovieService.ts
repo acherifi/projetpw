@@ -14,7 +14,7 @@ export class MovieService {
   }
   async getMovieByIdWithShowTimes(id: number, params: IParam[]): Promise<Movie> {
     let toAddToRequest = String(id) + '/?';
-    await params.map(x => toAddToRequest += x.getKey() + '=' + x.getValue() + '&');
+    await params.forEach(x => toAddToRequest += x.getKey() + '=' + x.getValue() + '&');
     const jsonResult = await this.doRequest(toAddToRequest);
     const m = await new Movie();
     await m.init(jsonResult);
