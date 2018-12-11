@@ -13,9 +13,11 @@ import { ParamInterval} from '../../services/objects/searchParameters/ParamInter
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
+
   iconPath = 'assets/clap.svg';
   buttons: String[] = ['Connexion', 'Inscription'];
   tempoTest = null;
+  categories: String[];
 
   constructor(iconRegistry: MatIconRegistry, sanitizer: DomSanitizer) {
     iconRegistry.addSvgIcon(

@@ -9,7 +9,7 @@ import {SearchParametersService} from '../../../services/SearchParametersService
 })
 export class Page1Component implements OnInit {
 
-  constructor(private apiToolService: APIToolService, private searchParametersService: SearchParametersService) { }
+  constructor() { }
 
   ngOnInit() {
   }

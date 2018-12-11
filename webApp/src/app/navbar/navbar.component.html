@@ -1,14 +1,38 @@
-<mat-toolbar class="mat-elevation-z2">
-  <mat-toolbar-row>
-    <span>
-        <mat-icon svgIcon="clap"></mat-icon>
-    </span>
-    <span class="example-fill-remaining-space"></span>
 
-    <div>
+<mat-tab-group class="mat-elevation-z2" dynamicHeight>
+  <span>
+    <mat-icon svgIcon="clap"></mat-icon>
+  </span>
+  
+  <mat-tab>
+    <ng-template mat-tab-label>
+      <mat-icon svgIcon="clap"></mat-icon>
+    </ng-template>
+  </mat-tab>
+
+  <mat-tab label="Cette semaine">
+      <app-page1></app-page1>
+  </mat-tab>
+
+
+  <mat-tab label="Watchlist">
+    <h1>Some more tab content</h1>
+    <p>...</p>
+  </mat-tab>
+
+  
+  <mat-tab label="Mon ciné">
+    <h1>Some more tab content</h1>
+    <p>...</p>
+  </mat-tab>
+
+  
+  
+  <mat-tab>
+    <ng-template mat-tab-label>
       <button mat-flat-button *ngFor="let button of buttons" (click)="tempoTestAPI()">
         {{button}}
       </button>
-    </div> 
-  </mat-toolbar-row>
-</mat-toolbar>
+    </ng-template>
+  </mat-tab>
+</mat-tab-group>

@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatToolbarModule, MatButtonModule, MatIconModule, MatCardModule } from '@angular/material/';
+import { MatToolbarModule, MatButtonModule, MatIconModule, MatCardModule, MatTabsModule } from '@angular/material/';
 import {HttpClientModule} from '@angular/common/http';
 import { NavbarComponent } from './navbar/navbar.component';
 import { MovieCardPage1Component } from './moviecards/moviecardpage1/moviecardpage1.component';
@@ -50,6 +50,7 @@ import { MovieDialogComponent } from './movie-dialog/movie-dialog.component';
     FlexLayoutModule,
     MatGridListModule,
     MatDialogModule,
+    MatTabsModule
   ],
   entryComponents: [
     MovieDialogComponent

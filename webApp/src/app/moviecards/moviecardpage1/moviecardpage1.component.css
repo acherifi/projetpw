@@ -6,6 +6,11 @@ mat-grid-tile{
     border-style: solid;
     transition: transform .2s
 }
+
+mat-grid-list{
+  min-height: 100vh;
+  overflow: scroll;
+}
   
   mat-grid-tile:hover {
     transform: scale(1.05); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
