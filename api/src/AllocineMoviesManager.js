@@ -17,7 +17,7 @@ module.exports = class AllocineMoviesManager {
       parametersShowTimes.longitude+'&radius='+parametersShowTimes.radius+'&format=json');
     }
     const showTime = await this.formatShowTime(resultShowTimeFromAllocine);
-    return [movie, showTime];
+    return {infomovie: movie, infoshowtime: showTime};
   }
   async getRecentMoviesInTheaters(interval) {
     const allMovies = [];
@@ -60,7 +60,7 @@ module.exports = class AllocineMoviesManager {
       for (let i = 0; i < movieAllocine.genre.length; ++i) {
         genres.push(movieAllocine.genre[i].$);
       }
-      const result = {infomovie: {
+      const result =  {
         id: movieAllocine.code,
         title: title,
         genres: genres,
@@ -70,7 +70,7 @@ module.exports = class AllocineMoviesManager {
         releasedate: movieAllocine.release.releaseDate,
         poster: movieAllocine.media[0].thumbnail.href,
         rate: await this.getRate(movieAllocine),
-      }};
+      };
       return result;
     }
   }
@@ -91,9 +91,9 @@ module.exports = class AllocineMoviesManager {
       }
     }
 
-    const result = {infoshowtime: {
+    const result = {
       'theaters': theaters,
-    }};
+    };
     return result;
   }
   async formatMovieShowTimes(allocineShowTimes) {

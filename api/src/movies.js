@@ -15,6 +15,7 @@ router.get('/:id', async function(req, res) {
   await res.end();
 });
 function createShowTimeParametersFromBody(query) {
+  console.log('query: '+query);
   let parametersShowTimes = undefined;
   if (query.latitude !== undefined && query.longitude !== undefined) {
     let radius = 10; // default radius value
