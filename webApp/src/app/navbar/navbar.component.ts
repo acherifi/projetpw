@@ -2,10 +2,10 @@ import { Component, OnInit, Input, ViewChild, ComponentFactoryResolver } from '@
 import {MatIconRegistry} from '@angular/material';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MovieService } from '../../services/MovieService';
-import { ParamLatitude} from '../../services/objects/searchParameters/ParamLatitude';
-import { ParamLongitude} from '../../services/objects/searchParameters/ParamLongitude';
-import { ParamRadius} from '../../services/objects/searchParameters/ParamRadius';
-import { ParamInterval} from '../../services/objects/searchParameters/ParamInterval';
+import { ParamLatitude} from '../../services/objects/sortParameters/ParamLatitude';
+import { ParamLongitude} from '../../services/objects/sortParameters/ParamLongitude';
+import { ParamRadius} from '../../services/objects/sortParameters/ParamRadius';
+import { ParamInterval} from '../../services/objects/sortParameters/ParamInterval';
 
 @Component({
   selector: 'app-navbar',

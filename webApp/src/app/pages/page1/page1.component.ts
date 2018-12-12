@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {APIToolService} from '../../../services/APIToolService';
-import {SearchParametersService} from '../../../services/SearchParametersService';
+import {SortService} from '../../../services/SortService';
 
 @Component({
   selector: 'app-page1',
