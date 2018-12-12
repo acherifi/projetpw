@@ -11,18 +11,14 @@ import { IParam } from '../../../services/objects/sortParameters/IParam';
 })
 export class SortBarPage3Component extends AbstractSortBar implements OnInit {
 
-  update(movies: Movie[]) {
-    // TODO
-  }
-  addParamToService(param: IParam) {
-    // TODO
-  }
-
-  constructor(private sortService: SortService) {
-    super();
+  constructor(protected sortService: SortService) {
+    super(sortService);
   }
 
   ngOnInit() {
+  }
+  getId(): number {
+    return 3;
   }
 
 }

@@ -21,6 +21,8 @@ import { SelectNumbersComponent } from './sortbar/sorttools/select-numbers/selec
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatDialogModule} from '@angular/material/dialog';
 import { MovieDialogComponent } from './movie-dialog/movie-dialog.component';
+import { SortService} from '../services/SortService';
+import {MovieService} from '../services/MovieService';
 
 @NgModule({
   declarations: [
@@ -55,7 +57,7 @@ import { MovieDialogComponent } from './movie-dialog/movie-dialog.component';
   entryComponents: [
     MovieDialogComponent
   ],
-  providers: [],
+  providers: [SortService, MovieService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

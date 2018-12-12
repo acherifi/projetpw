@@ -10,19 +10,14 @@ import { IParam } from '../../../services/objects/sortParameters/IParam';
   styleUrls: ['./sort-bar-page2.component.css']
 })
 export class SortBarPage2Component extends AbstractSortBar implements OnInit {
-
-  update(movies: Movie[]) {
-    // TODO
-  }
-  addParamToService(param: IParam) {
-    // TODO
-  }
-
-  constructor(private sortService: SortService) {
-    super();
+  constructor(protected sortService: SortService) {
+    super(sortService);
   }
 
   ngOnInit() {
+  }
+  getId(): number {
+    return 2;
   }
 
 }

@@ -5,14 +5,14 @@ export class SortService {
   private sortParameters: Map<number, IParam[]>;
   private sortedParametersHasChanged: Map<number, boolean>;
   private rawMovies: Map<number, Movie[]>;
-  private rawMoviesHasChanged: Map<number, boolean>;
+  private rawDataHasChanged: Map<number, boolean>;
   private handlersObservers: HandlerObserverSortService[];
 
   constructor() {
     this.sortParameters = new Map<number, IParam[]>();
     this.sortedParametersHasChanged = new Map<number, boolean>();
     this.rawMovies = new Map<number, Movie[]>();
-    this.rawMoviesHasChanged = new Map<number, boolean>();
+    this.rawDataHasChanged = new Map<number, boolean>();
     this.handlersObservers = [];
   }
   async addParam(idPage: number, param: IParam) {
@@ -53,13 +53,16 @@ export class SortService {
     await console.log('fin sorted');
     return sortedMovies;
   }
-  async sortedMoviesHasChanged(idPage: number) {
+  async rawMoviesHasChanged(idPage: number): Promise<boolean> {
+    return await this.rawDataHasChanged.get(idPage);
+  }
+  async sortedMoviesHasChanged(idPage: number): Promise<boolean> {
     return await this.sortedParametersHasChanged.get(idPage);
   }
   async setRawMovies(idPage: number, movies: Movie[]) {
     await console.log('set raw movies');
     await this.rawMovies.set(idPage, movies);
-    await this.rawMoviesHasChanged.set(idPage, true);
+    await this.rawDataHasChanged.set(idPage, true);
     await this.callHandlersObservers();
   }
   async getRawMovies(idPage: number) {

@@ -10,21 +10,21 @@ import { IParam } from '../../../services/objects/sortParameters/IParam';
   styleUrls: ['./sort-bar-page1.component.css']
 })
 export class SortBarPage1Component extends AbstractSortBar implements OnInit {
-  @Input() dataLastWeeks: string[];
-  update(movies: Movie[]) {
-    // TODO
+  constructor(protected sortService: SortService) {
+    super(sortService);
+    this.sortService.addObserversHandlers(this.handlerUpdate);
   }
-  addParamToService(param: IParam) {
-    // TODO
+  async handlerUpdate(sortService: SortService) {
+    await super.update(SortBarPage1Component.this.getId(), sortService);
   }
   onChangeWeeks(result) {
     // TODO handler du choix des semaines
   }
-  constructor(private sortService: SortService) {
-    super();
-  }
 
   ngOnInit() {
+  }
+  getId(): number {
+    return 1;
   }
 
 }
