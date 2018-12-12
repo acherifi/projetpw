@@ -37,7 +37,7 @@ export class Movie {
     return res;
   }
   private async fillData(jsonResult) {
-    await console.log(jsonResult);
+    // await console.log(jsonResult);
     const theaters = [];
     await jsonResult.infoshowtime.theaters.forEach(async x => {
       const tempoTheater = await new Theater();

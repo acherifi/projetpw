@@ -1,1 +1,9 @@
-<app-moviecardpage1></app-moviecardpage1>
+<mat-grid-list [cols]="breakpoint" (window:resize)="onResize($event)" gutterSize="1%">
+  <div *ngIf="movies else loading">
+    <app-moviecardpage1 [data]="movies"></app-moviecardpage1>
+  </div>
+</mat-grid-list>
+
+<ng-template #loading>
+  <p>Loading...</p>
+</ng-template>

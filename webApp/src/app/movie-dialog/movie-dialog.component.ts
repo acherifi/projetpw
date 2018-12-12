@@ -1,4 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+
+
+export interface DialogData {
+  name: String;
+  synopsis: String;
+}
 
 @Component({
   selector: 'app-movie-dialog',
@@ -7,7 +14,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MovieDialogComponent implements OnInit {
 
-  constructor() { }
+  constructor(public dialogRef: MatDialogRef<MovieDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: DialogData) { }
 
   ngOnInit() {
   }
