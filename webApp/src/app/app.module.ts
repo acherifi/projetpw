@@ -6,9 +6,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatToolbarModule, MatButtonModule, MatIconModule, MatCardModule, MatTabsModule } from '@angular/material/';
 import {HttpClientModule} from '@angular/common/http';
 import { NavbarComponent } from './navbar/navbar.component';
-import { MovieCardPage1Component } from './moviecards/moviecardpage1/moviecardpage1.component';
-import { MovieCardPage2Component } from './moviecards/moviecardpage2/moviecardpage2.component';
-import { MovieCardPage3Component } from './moviecards/moviecardpage3/moviecardpage3.component';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import { Page1Component } from './pages/page1/page1.component';
 import { Page2Component } from './pages/page2/page2.component';
@@ -26,9 +23,6 @@ import { MovieDialogComponent } from './movie-dialog/movie-dialog.component';
   declarations: [
     AppComponent,
     NavbarComponent,
-    MovieCardPage1Component,
-    MovieCardPage2Component,
-    MovieCardPage3Component,
     Page1Component,
     Page2Component,
     Page3Component,

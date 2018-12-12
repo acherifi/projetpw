@@ -2,7 +2,7 @@
   <div *ngIf="movies else loading">
     <div *ngFor="let movie of movies; let i=index">
         <mat-grid-tile (click)="onClickMe(i)">
-            <img src="http://fr.web.img5.acsta.net/pictures/18/10/30/12/42/3835017.jpg" alt="">
+            <img src={{movie.posterLink}} alt="">
             <mat-grid-tile-footer>{{movie.title}}</mat-grid-tile-footer>
         </mat-grid-tile>
     </div>

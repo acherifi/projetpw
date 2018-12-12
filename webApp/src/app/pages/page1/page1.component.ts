@@ -40,7 +40,11 @@ export class Page1Component implements OnInit {
 
   onClickMe(index) {
     const dialogRef = this.dialog.open(MovieDialogComponent, {
-      data: {name: this.movies[index].title, synopsis: this.movies[index].synopsis}
+      data: {
+        name: this.movies[index].title,
+        synopsis: this.movies[index].synopsis,
+        poster: this.movies[index].posterLink;
+      }
     });
 
     dialogRef.afterClosed().subscribe(result => {
