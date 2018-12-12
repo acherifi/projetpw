@@ -3,6 +3,8 @@ import {APIToolService} from '../../../services/APIToolService';
 import {SearchParametersService} from '../../../services/SearchParametersService';
 import { MovieService } from 'src/services/MovieService';
 import { ParamInterval } from 'src/services/objects/searchParameters/ParamInterval';
+import { MatDialog } from '@angular/material';
+import { MovieDialogComponent } from 'src/app/movie-dialog/movie-dialog.component';
 
 @Component({
   selector: 'app-page1',
@@ -14,11 +16,12 @@ export class Page1Component implements OnInit {
   breakpoint = 6;
   movies = null;
 
-  constructor() { }
+  constructor(public dialog: MatDialog) { }
 
   async ngOnInit() {
     this.handleResponsive(window);
     this.movies = await ((await new MovieService()).getRecentMovies(new ParamInterval('[0, 10]')));
+    console.log('MOVIES ASYNC', this.movies);
   }
 
   onResize(event) {
@@ -33,5 +36,15 @@ export class Page1Component implements OnInit {
     if (event.innerWidth <= 400) {
       this.breakpoint = 1;
     }
+  }
+
+  onClickMe(index) {
+    const dialogRef = this.dialog.open(MovieDialogComponent, {
+      data: {name: this.movies[index].title, synopsis: this.movies[index].synopsis}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
   }
 }
