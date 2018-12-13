@@ -67,9 +67,6 @@ export class Page1Component implements OnInit {
   async onPaginateChange(event: PageEvent) {
     const start = event.pageIndex * event.pageSize;
     const end = start + event.pageSize - 1;
-    console.log(start, end);
     this.movies = await ((await new MovieService()).getRecentMovies(new ParamInterval(`[${start}, ${end}]`)));
-    console.log(this.movies);
-
   }
 }
