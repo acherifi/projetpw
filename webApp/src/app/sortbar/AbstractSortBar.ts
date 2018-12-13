@@ -28,17 +28,19 @@ export abstract class AbstractSortBar {
       AbstractSortBar.this.dataGenres = await dataGenres;
     }
   }
-  async onClickGenres(object) {
+  async onChangeGenres(objectsFromSelect) {
     // c'est un handler commun à toutes les barres
-    for (let i = 0; i < object.length; ++i) {
-    const param = new ParamGenre(object[i].value);
-      if (!object[i].selected) {
-        await AbstractSortBar.this.removeParamFromService(param);
-      } else {
-        await AbstractSortBar.this.addParamToService(param);
+    await AbstractSortBar.this.onChangeGeneral(objectsFromSelect, async (value) => await new ParamGenre(value));
+  }
+  async onChangeGeneral(objects, constructorParam) {
+    for (let i = 0; i < objects.options.length; ++i) {
+      const param = await constructorParam(objects.options[i].value);
+        if (!objects.options[i].selected) {
+          await AbstractSortBar.this.removeParamFromService(param);
+        } else {
+          await AbstractSortBar.this.addParamToService(param);
+        }
       }
-    }
-
   }
   async addParamToService(param: IParam) {
     await this.sortService.addParam(await this.getId(), param);

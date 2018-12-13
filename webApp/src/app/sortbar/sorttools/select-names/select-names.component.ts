@@ -8,9 +8,20 @@ import { Component, OnInit, Input } from '@angular/core';
 export class SelectNamesComponent implements OnInit {
   @Input() handlerChange;
   @Input() data: string[];
+  saveLastObjectSelected = null;
   constructor() { }
 
   ngOnInit() {
+  }
+  async onClick(objectClicked, device) {
+    if (this.saveLastObjectSelected !== null && this.saveLastObjectSelected.value === objectClicked.value && objectClicked.selected) {
+      objectClicked.selected = false;
+      this.saveLastObjectSelected = null;
+      await this.handlerChange(device);
+    }
+    if (objectClicked.selected) {
+      this.saveLastObjectSelected = objectClicked;
+    }
   }
 
 }
