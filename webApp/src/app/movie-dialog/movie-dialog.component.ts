@@ -14,8 +14,8 @@ export interface DialogData {
 })
 export class MovieDialogComponent implements OnInit {
 
-  constructor(public dialogRef: MatDialogRef<MovieDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData) { }
+  constructor(public dialogRef: MatDialogRef<MovieDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: DialogData) {
+  }
 
   ngOnInit() {
   }
