@@ -4,7 +4,8 @@
 (page)="onPaginateChange($event)">
 </mat-paginator>
 <mat-grid-list [cols]="breakpoint" (window:resize)="onResize($event)" gutterSize="1%">
-  <div *ngIf="movies else loading">
+  <mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
+  <div *ngIf="movies">
     <div *ngFor="let movie of movies; let i=index">
         <mat-grid-tile (click)="onClickMe(i)">
             <img src={{movie.posterLink}} alt="">
@@ -13,10 +14,4 @@
     </div>
   </div>
 </mat-grid-list>
-
-<ng-template #loading>
-  <p>Loading...</p>
-</ng-template>
-
-
 <app-sort-bar-page1></app-sort-bar-page1>

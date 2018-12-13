@@ -12,16 +12,18 @@ import {ParamInterval} from '../../../services/objects/sortParameters/ParamInter
   styleUrls: ['./page1.component.css']
 })
 export class Page1Component implements OnInit {
-  static this;
+  static this: any;
+
   constructor(protected sortService: SortService, protected movieService: MovieService, private dialog: MatDialog) {
     Page1Component.this = this;
     this.sortService.addObserversHandlers(this.update);
   }
 
   breakpoint = 6;
+  loading = true;
   movies: Movie[] = null;
 
-  onResize(event) {
+  onResize(event: any) {
     this.handleResponsive(event.target);
   }
 
@@ -32,8 +34,8 @@ export class Page1Component implements OnInit {
   }
   async update(sortService: SortService) {
     if (await sortService.sortedMoviesHasChanged(await Page1Component.this.getId())) {
-      console.log('update page 1');
       Page1Component.this.movies = await sortService.getSortedMovies(await Page1Component.this.getId());
+      Page1Component.this.loading = false;
     }
   }
   getId(): number {
@@ -50,7 +52,7 @@ export class Page1Component implements OnInit {
     }
   }
 
-  onClickMe(index) {
+  onClickMe(index: number) {
     const dialogRef = this.dialog.open(MovieDialogComponent, {
       data: {
         name: this.movies[index].getTitle(),
@@ -65,6 +67,7 @@ export class Page1Component implements OnInit {
   }
 
   async onPaginateChange(event: PageEvent) {
+    this.loading = true;
     const start = event.pageIndex * event.pageSize;
     const end = start + event.pageSize - 1;
     await this.sortService.setRawMovies(await this.getId(), await ((await new MovieService()).getRecentMovies( await new
