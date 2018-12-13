@@ -1,5 +1,8 @@
 import { Theater } from './Theater';
 import { IParam } from './sortParameters/IParam';
+import {ParamDirector} from './sortParameters/ParamDirector';
+import { ParamGenre} from './sortParameters/ParamGenre';
+import { ParamReleaseDate } from './sortParameters/ParamReleaseDate';
 export class Movie {
 
   private theaters: Theater[];
@@ -64,10 +67,12 @@ export class Movie {
   async contains(param: IParam): Promise<boolean> {
     const valueParam = await param.getValue();
     const compareFunction = (x => x === valueParam);
-    if (await param.getKey() === 'directors') {
+    if (await param.getKey() === (await (await new ParamDirector('')).getKey())) {
       return await (await this.directors.find(compareFunction)) !== undefined;
-    } else if (await param.getKey() === 'genres') {
+    } else if (await param.getKey() === (await (await new ParamGenre('')).getKey())) {
       return await (await this.genres.find(compareFunction)) !== undefined;
+    } else if (await param.getKey() === (await (await new ParamReleaseDate('')).getKey())) {
+      return await (await this.releaseDate.toDateString() === valueParam);
     }
     return false;
   }

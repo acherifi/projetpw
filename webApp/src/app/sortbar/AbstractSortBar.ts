@@ -32,6 +32,7 @@ export abstract class AbstractSortBar {
     // c'est un handler commun à toutes les barres
     await AbstractSortBar.this.onChangeGeneral(objectsFromSelect, async (value) => await new ParamGenre(value));
   }
+
   async onChangeGeneral(objects, constructorParam) {
     for (let i = 0; i < objects.options.length; ++i) {
       const param = await constructorParam(objects.options[i].value);
