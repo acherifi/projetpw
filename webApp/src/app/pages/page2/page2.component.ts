@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {APIToolService} from '../../../services/APIToolService';
-import {SearchParametersService} from '../../../services/SearchParametersService';
+import {SortService} from '../../../services/SortService';
 
 @Component({
   selector: 'app-page2',
@@ -9,7 +9,7 @@ import {SearchParametersService} from '../../../services/SearchParametersService
 })
 export class Page2Component implements OnInit {
 
-  constructor(private apiToolService: APIToolService, private searchParametersService: SearchParametersService) { }
+  constructor(private apiToolService: APIToolService, private sortService: SortService) { }
 
   ngOnInit() {
   }

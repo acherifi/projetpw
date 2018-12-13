@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { APIToolService } from '../services/APIToolService';
-import { SearchParametersService} from '../services/SearchParametersService';
+import { SortService} from '../services/SortService';
 import Cards from './data.provider';
 
 @Component({

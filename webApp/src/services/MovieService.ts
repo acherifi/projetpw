@@ -1,6 +1,6 @@
 import { Movie } from './objects/Movie';
-import { IParam } from './objects/searchParameters/IParam';
-import { ParamInterval } from './objects/searchParameters/ParamInterval';
+import { IParam } from './objects/sortParameters/IParam';
+import { ParamInterval } from './objects/sortParameters/ParamInterval';
 
 export class MovieService {
   constructor() {

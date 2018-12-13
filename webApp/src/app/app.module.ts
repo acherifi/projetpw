@@ -10,14 +10,16 @@ import {FlexLayoutModule} from '@angular/flex-layout';
 import { Page1Component } from './pages/page1/page1.component';
 import { Page2Component } from './pages/page2/page2.component';
 import { Page3Component } from './pages/page3/page3.component';
-import { SearchBarPage1Component } from './searchbar/search-bar-page1/search-bar-page1.component';
-import { SearchBarPage2Component } from './searchbar/search-bar-page2/search-bar-page2.component';
-import { SearchBarPage3Component } from './searchbar/search-bar-page3/search-bar-page3.component';
-import { SelectNamesComponent } from './searchbar/searchtools/select-names/select-names.component';
-import { SelectNumbersComponent } from './searchbar/searchtools/select-numbers/select-numbers.component';
+import { SortBarPage1Component } from './sortbar/sort-bar-page1/sort-bar-page1.component';
+import { SortBarPage2Component } from './sortbar/sort-bar-page2/sort-bar-page2.component';
+import { SortBarPage3Component } from './sortbar/sort-bar-page3/sort-bar-page3.component';
+import { SelectNamesComponent } from './sortbar/sorttools/select-names/select-names.component';
+import { SelectNumbersComponent } from './sortbar/sorttools/select-numbers/select-numbers.component';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatDialogModule} from '@angular/material/dialog';
 import { MovieDialogComponent } from './movie-dialog/movie-dialog.component';
+import { SortService} from '../services/SortService';
+import {MovieService} from '../services/MovieService';
 
 @NgModule({
   declarations: [
@@ -26,9 +28,9 @@ import { MovieDialogComponent } from './movie-dialog/movie-dialog.component';
     Page1Component,
     Page2Component,
     Page3Component,
-    SearchBarPage1Component,
-    SearchBarPage2Component,
-    SearchBarPage3Component,
+    SortBarPage1Component,
+    SortBarPage2Component,
+    SortBarPage3Component,
     SelectNamesComponent,
     SelectNumbersComponent,
     MovieDialogComponent,
@@ -49,7 +51,7 @@ import { MovieDialogComponent } from './movie-dialog/movie-dialog.component';
   entryComponents: [
     MovieDialogComponent
   ],
-  providers: [],
+  providers: [SortService, MovieService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

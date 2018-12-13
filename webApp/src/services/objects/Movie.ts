@@ -1,4 +1,5 @@
 import { Theater } from './Theater';
+import { IParam } from './sortParameters/IParam';
 export class Movie {
 
   private theaters: Theater[];
@@ -14,11 +15,35 @@ export class Movie {
   async init(movieJSON) {
     await this.fillData(movieJSON);
   }
-  getTitle(): String {
-    return null;
-  }
   getTheaters(): Theater[] {
-    return null;
+    return this.theaters;
+  }
+  getTitle(): String {
+    return this.title;
+  }
+  getSynopsis(): String {
+    return this.synopsis;
+  }
+  getPosterLink(): String {
+    return this.posterLink;
+  }
+  getDirectors(): String[] {
+    return this.directors;
+  }
+  getActors(): String[] {
+    return this.actors;
+  }
+  getGenres(): String[] {
+    return this.genres;
+  }
+  getId(): Number {
+    return this.id;
+  }
+  getRate(): Number {
+    return this.rate;
+  }
+  getReleaseDate(): Date {
+    return this.releaseDate;
   }
   async toString() {
     let res = '';
@@ -35,6 +60,16 @@ export class Movie {
       res += await this.theaters[i].toString() + ' , ';
     }
     return res;
+  }
+  async contains(param: IParam): Promise<boolean> {
+    const valueParam = await param.getValue();
+    const compareFunction = (x => x === valueParam);
+    if (await param.getKey() === 'directors') {
+      return await (await this.directors.find(compareFunction)) !== undefined;
+    } else if (await param.getKey() === 'genres') {
+      return await (await this.genres.find(compareFunction)) !== undefined;
+    }
+    return false;
   }
   private async fillData(jsonResult) {
     // await console.log(jsonResult);

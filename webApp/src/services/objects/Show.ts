@@ -1,4 +1,3 @@
-import fetch from 'node-fetch';
 export class Show {
   private date: Date;
   private shows: String[];
