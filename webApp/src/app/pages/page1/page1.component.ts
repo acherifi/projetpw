@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material';
+import { MatDialog, PageEvent } from '@angular/material';
 import { MovieDialogComponent } from 'src/app/movie-dialog/movie-dialog.component';
 import {SortService} from '../../../services/SortService';
 import {MovieService} from '../../../services/MovieService';
@@ -27,7 +27,7 @@ export class Page1Component implements OnInit {
 
   async ngOnInit() {
     this.handleResponsive(window);
-    this.movies = await ((await new MovieService()).getRecentMovies(new ParamInterval('[0, 10]')));
+    this.movies = await ((await new MovieService()).getRecentMovies(new ParamInterval('[0, 9]')));
     const recentMovies = await this.movieService.getRecentMovies(await new ParamInterval('[0, 10]'));
     await this.sortService.setRawMovies(await this.getId(), recentMovies);
   }
@@ -62,5 +62,14 @@ export class Page1Component implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
     });
+  }
+
+  async onPaginateChange(event: PageEvent) {
+    const start = event.pageIndex * event.pageSize;
+    const end = start + event.pageSize - 1;
+    console.log(start, end);
+    this.movies = await ((await new MovieService()).getRecentMovies(new ParamInterval(`[${start}, ${end}]`)));
+    console.log(this.movies);
+
   }
 }

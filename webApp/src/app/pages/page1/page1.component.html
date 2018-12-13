@@ -1,3 +1,8 @@
+<mat-paginator [length]="100"
+[pageSize]="10"
+[pageSizeOptions]="[5, 10, 25, 100]"
+(page)="onPaginateChange($event)">
+</mat-paginator>
 <mat-grid-list [cols]="breakpoint" (window:resize)="onResize($event)" gutterSize="1%">
   <div *ngIf="movies else loading">
     <div *ngFor="let movie of movies; let i=index">
@@ -12,4 +17,6 @@
 <ng-template #loading>
   <p>Loading...</p>
 </ng-template>
+
+
 <app-sort-bar-page1></app-sort-bar-page1>
