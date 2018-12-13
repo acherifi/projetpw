@@ -27,13 +27,13 @@ export class Page1Component implements OnInit {
 
   async ngOnInit() {
     this.handleResponsive(window);
-    this.movies = await ((await new MovieService()).getRecentMovies(new ParamInterval('[0, 9]')));
     const recentMovies = await this.movieService.getRecentMovies(await new ParamInterval('[0, 10]'));
     await this.sortService.setRawMovies(await this.getId(), recentMovies);
   }
   async update(sortService: SortService) {
     if (await sortService.sortedMoviesHasChanged(await Page1Component.this.getId())) {
-      Page1Component.this.movies = await sortService.getSortedMovies(Page1Component.this.getId());
+      console.log('update page 1');
+      Page1Component.this.movies = await sortService.getSortedMovies(await Page1Component.this.getId());
     }
   }
   getId(): number {
@@ -67,6 +67,7 @@ export class Page1Component implements OnInit {
   async onPaginateChange(event: PageEvent) {
     const start = event.pageIndex * event.pageSize;
     const end = start + event.pageSize - 1;
-    this.movies = await ((await new MovieService()).getRecentMovies(new ParamInterval(`[${start}, ${end}]`)));
+    await this.sortService.setRawMovies(await this.getId(), await ((await new MovieService()).getRecentMovies( await new
+      ParamInterval(`[${start}, ${end}]`))));
   }
 }

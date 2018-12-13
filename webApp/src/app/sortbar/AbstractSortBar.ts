@@ -2,37 +2,49 @@ import { Input } from '@angular/core';
 import { Movie } from '../../services/objects/Movie';
 import { IParam } from '../../services/objects/sortParameters/IParam';
 import {SortService} from '../../services/SortService';
+import { ParamGenre} from '../../services/objects/sortParameters/ParamGenre';
 
 export abstract class AbstractSortBar {
   static this;
-  @Input() dataDirectors: string[];
+  @Input() dataGenres: string[];
 
   constructor(protected sortService: SortService) {
     AbstractSortBar.this = this;
-    this.dataDirectors = ['ceci est un test'];
+    this.dataGenres = ['ceci est un test'];
   }
   async update(id: number, sortService: SortService) {
     if (await sortService.rawMoviesHasChanged(id)) {
       /*Ici on fait les paramètres qui sont en commun, donc on va dire que la possibilité de trié par
-      réalisateur est présente sur toutes les bar de tri*/
+      genres est présente sur toutes les bar de tri*/
       const movies = (await sortService.getRawMovies(id));
-      const dataDirectors = [];
+      const dataGenres = [];
       for (let i = 0; i < movies.length; ++i) {
-        await (await movies[i].getDirectors()).forEach(async x => await dataDirectors.push(x));
+        await (await movies[i].getGenres()).forEach(async x => {
+          if (await dataGenres.findIndex(y => y === x) === -1) {
+            await dataGenres.push(x);
+          }
+        });
       }
-      AbstractSortBar.this.dataDirectors = await dataDirectors;
+      AbstractSortBar.this.dataGenres = await dataGenres;
     }
   }
-  submit() {
-    // TODO: c'est l'event du bouton submit quoi
-    // c'est un handler commun à toutes les barres de recherche
-  }
-  onChangeDirectors(result) {
-    // TODO: event quand le choix des réalisateurs changent
+  async onClickGenres(object) {
     // c'est un handler commun à toutes les barres
+    for (let i = 0; i < object.length; ++i) {
+    const param = new ParamGenre(object[i].value);
+      if (!object[i].selected) {
+        await AbstractSortBar.this.removeParamFromService(param);
+      } else {
+        await AbstractSortBar.this.addParamToService(param);
+      }
+    }
+
   }
   async addParamToService(param: IParam) {
-
+    await this.sortService.addParam(await this.getId(), param);
+  }
+  async removeParamFromService(param: IParam) {
+    await this.sortService.removeParam(await this.getId(), param);
   }
   abstract getId(): number;
 }
