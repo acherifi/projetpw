@@ -19,7 +19,7 @@ export class Page1Component implements OnInit {
   }
 
   breakpoint = 6;
-  movies = null;
+  movies: Movie[] = null;
 
   onResize(event) {
     this.handleResponsive(event.target);
@@ -33,11 +33,8 @@ export class Page1Component implements OnInit {
   }
   async update(sortService: SortService) {
     if (await sortService.sortedMoviesHasChanged(await Page1Component.this.getId())) {
-      await Page1Component.this.fillPage(await sortService.getSortedMovies(Page1Component.this.getId()));
+      Page1Component.this.movies = await sortService.getSortedMovies(Page1Component.this.getId());
     }
-  }
-  async fillPage(movies: Movie[]) {
-    await console.log('je remplis la page');
   }
   getId(): number {
     return 1;
@@ -56,9 +53,9 @@ export class Page1Component implements OnInit {
   onClickMe(index) {
     const dialogRef = this.dialog.open(MovieDialogComponent, {
       data: {
-        name: this.movies[index].title,
-        synopsis: this.movies[index].synopsis,
-        poster: this.movies[index].posterLink
+        name: this.movies[index].getTitle(),
+        synopsis: this.movies[index].getSynopsis(),
+        poster: this.movies[index].getPosterLink()
       }
     });
 
