@@ -1,3 +1,19 @@
-<p>
-  page2 works!
-</p>
+
+<mat-paginator [length]="100"
+[pageSize]="10"
+[pageSizeOptions]="[5, 10, 25, 100]"
+(page)="onPaginateChange($event)">
+</mat-paginator>
+<mat-grid-list [cols]="breakpoint" (window:resize)="onResize($event)" gutterSize="1%">
+  <mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
+  <div *ngIf="movies">
+    <div *ngFor="let movie of movies; let i=index">
+        <mat-grid-tile (click)="onClickMe(i)">
+            <img src={{movie.posterLink}} alt="">
+            <mat-grid-tile-footer>{{movie.title}}</mat-grid-tile-footer>
+        </mat-grid-tile>
+    </div>
+  </div>
+</mat-grid-list>
+<app-sort-bar-page2></app-sort-bar-page2>
+

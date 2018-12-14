@@ -13,13 +13,21 @@ import {AbstractPage} from '../AbstractPage';
   styleUrls: ['./page1.component.css']
 })
 export class Page1Component extends AbstractPage implements OnInit {
+  static this: any;
   constructor(protected sortService: SortService, protected movieService: MovieService, protected dialog: MatDialog) {
     super(sortService, movieService, dialog);
+    Page1Component.this = this;
   }
   async ngOnInit() {
     super.handleResponsive(window);
     const recentMovies = await this.movieService.getRecentMovies(await new ParamInterval('[0, 10]'));
     await this.sortService.setRawMovies(await this.getId(), recentMovies);
+  }
+  async update(sortService: SortService) {
+    if (await sortService.sortedMoviesHasChanged(await Page1Component.this.getId())) {
+      Page1Component.this.movies = await sortService.getSortedMovies(await Page1Component.this.getId());
+      Page1Component.this.loading = false;
+    }
   }
   getId(): number {
     return 1;
@@ -27,7 +35,11 @@ export class Page1Component extends AbstractPage implements OnInit {
 
   async getDataToPrint(movie: Movie) {
     const data = await super.getDataToPrint(movie);
-    data.data['rate'] = 'rate:' + await movie.getRate();
+    let actors = 'Actors:';
+    await movie.getActors().forEach(async actor => {
+      actors += actor;
+    });
+    data.data['actors'] = actors;
     return data;
   }
 }

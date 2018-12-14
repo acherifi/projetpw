@@ -4,6 +4,7 @@ import {AbstractSortBar} from '../AbstractSortBar';
 import { Movie } from '../../../services/objects/Movie';
 import { IParam } from '../../../services/objects/sortParameters/IParam';
 import { ParamReleaseDate } from '../../../services/objects/sortParameters/ParamReleaseDate';
+import { ParamGenre} from '../../../services/objects/sortParameters/ParamGenre';
 
 @Component({
   selector: 'app-sort-bar-page1',
@@ -11,10 +12,11 @@ import { ParamReleaseDate } from '../../../services/objects/sortParameters/Param
   styleUrls: ['./sort-bar-page1.component.css']
 })
 export class SortBarPage1Component extends AbstractSortBar implements OnInit {
-
+  static this: any;
   @Input() dataReleaseDates;
   constructor(protected sortService: SortService) {
     super(sortService);
+    SortBarPage1Component.this = this;
     this.sortService.addObserversHandlers(this.handlerUpdate);
   }
   async handlerUpdate(sortService: SortService) {
@@ -28,7 +30,6 @@ export class SortBarPage1Component extends AbstractSortBar implements OnInit {
   }
   async update(id: number, sortService: SortService) {
     await super.update(id, sortService);
-    await console.log('update filse');
     if (await sortService.rawMoviesHasChanged(id)) {
       const movies = (await sortService.getRawMovies(id));
       const dataReleaseDates = [];
@@ -38,11 +39,15 @@ export class SortBarPage1Component extends AbstractSortBar implements OnInit {
           await dataReleaseDates.push(movieRelease);
         }
       }
-      AbstractSortBar.this.dataReleaseDates = dataReleaseDates;
+      this.dataReleaseDates = dataReleaseDates;
     }
   }
   getId(): number {
     return 1;
+  }
+  async onChangeGenres(objectsFromSelect) {
+    // c'est un handler commun à toutes les barres
+    await SortBarPage1Component.this.onChangeGeneral(objectsFromSelect, async (value) => await new ParamGenre(value));
   }
 
 }

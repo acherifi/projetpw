@@ -2,14 +2,11 @@ import { Input } from '@angular/core';
 import { Movie } from '../../services/objects/Movie';
 import { IParam } from '../../services/objects/sortParameters/IParam';
 import {SortService} from '../../services/SortService';
-import { ParamGenre} from '../../services/objects/sortParameters/ParamGenre';
+
 
 export abstract class AbstractSortBar {
-  static this;
   @Input() dataGenres: string[];
-
   constructor(protected sortService: SortService) {
-    AbstractSortBar.this = this;
     this.dataGenres = ['ceci est un test'];
   }
   async update(id: number, sortService: SortService) {
@@ -25,21 +22,17 @@ export abstract class AbstractSortBar {
           }
         });
       }
-      AbstractSortBar.this.dataGenres = await dataGenres;
+      this.dataGenres = await dataGenres;
     }
-  }
-  async onChangeGenres(objectsFromSelect) {
-    // c'est un handler commun à toutes les barres
-    await AbstractSortBar.this.onChangeGeneral(objectsFromSelect, async (value) => await new ParamGenre(value));
   }
 
   async onChangeGeneral(objects, constructorParam) {
     for (let i = 0; i < objects.options.length; ++i) {
       const param = await constructorParam(objects.options[i].value);
         if (!objects.options[i].selected) {
-          await AbstractSortBar.this.removeParamFromService(param);
+          await this.removeParamFromService(param);
         } else {
-          await AbstractSortBar.this.addParamToService(param);
+          await this.addParamToService(param);
         }
       }
   }

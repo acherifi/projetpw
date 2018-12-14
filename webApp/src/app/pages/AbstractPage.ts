@@ -6,12 +6,10 @@ import {ParamInterval} from '../../services/objects/sortParameters/ParamInterval
 import {MovieService} from '../../services/MovieService';
 
 export abstract class AbstractPage {
-  static this: any;
   breakpoint = 6;
   loading = true;
   movies: Movie[] = null;
   constructor(protected sortService: SortService, protected movieService: MovieService,  protected dialog: MatDialog) {
-    AbstractPage.this = this;
     this.sortService.addObserversHandlers(this.update);
   }
   handleResponsive(event: any) {
@@ -26,12 +24,7 @@ export abstract class AbstractPage {
   onResize(event: any) {
     this.handleResponsive(event.target);
   }
-  async update(sortService: SortService) {
-    if (await sortService.sortedMoviesHasChanged(await AbstractPage.this.getId())) {
-      AbstractPage.this.movies = await sortService.getSortedMovies(await AbstractPage.this.getId());
-      AbstractPage.this.loading = false;
-    }
-  }
+  abstract async update(sortService: SortService);
   async onPaginateChange(event: PageEvent) {
     this.loading = true;
     const start = event.pageIndex * event.pageSize;

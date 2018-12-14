@@ -10,10 +10,20 @@ import { IParam } from '../../../services/objects/sortParameters/IParam';
   styleUrls: ['./sort-bar-page2.component.css']
 })
 export class SortBarPage2Component extends AbstractSortBar implements OnInit {
+  static this: any;
   constructor(protected sortService: SortService) {
     super(sortService);
+    SortBarPage2Component.this = this;
+    this.sortService.addObserversHandlers(this.handlerUpdate);
   }
-
+  async handlerUpdate(sortService: SortService) {
+    await SortBarPage2Component.this.update(SortBarPage2Component.this.getId(), sortService);
+  }
+  async onChangeReleaseDates(objectsFromSelect) {
+  }
+  async update(id: number, sortService: SortService) {
+    await super.update(id, sortService);
+  }
   ngOnInit() {
   }
   getId(): number {
