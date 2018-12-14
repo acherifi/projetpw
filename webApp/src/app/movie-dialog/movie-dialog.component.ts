@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, Input } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
 
@@ -13,11 +13,15 @@ export interface DialogData {
   styleUrls: ['./movie-dialog.component.css']
 })
 export class MovieDialogComponent implements OnInit {
+  infos: string[];
+  keys: string[];
 
   constructor(public dialogRef: MatDialogRef<MovieDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: DialogData) {
   }
 
-  ngOnInit() {
+  async ngOnInit() {
+    this.keys = Object.keys(this.data);
+    this.keys = this.keys.filter(x => x !== 'poster');
   }
 
 }

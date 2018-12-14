@@ -5,73 +5,29 @@ import {SortService} from '../../../services/SortService';
 import {MovieService} from '../../../services/MovieService';
 import {Movie} from '../../../services/objects/Movie';
 import {ParamInterval} from '../../../services/objects/sortParameters/ParamInterval';
+import {AbstractPage} from '../AbstractPage';
 
 @Component({
   selector: 'app-page1',
   templateUrl: './page1.component.html',
   styleUrls: ['./page1.component.css']
 })
-export class Page1Component implements OnInit {
-  static this: any;
-
-  constructor(protected sortService: SortService, protected movieService: MovieService, private dialog: MatDialog) {
-    Page1Component.this = this;
-    this.sortService.addObserversHandlers(this.update);
+export class Page1Component extends AbstractPage implements OnInit {
+  constructor(protected sortService: SortService, protected movieService: MovieService, protected dialog: MatDialog) {
+    super(sortService, movieService, dialog);
   }
-
-  breakpoint = 6;
-  loading = true;
-  movies: Movie[] = null;
-
-  onResize(event: any) {
-    this.handleResponsive(event.target);
-  }
-
   async ngOnInit() {
-    this.handleResponsive(window);
+    super.handleResponsive(window);
     const recentMovies = await this.movieService.getRecentMovies(await new ParamInterval('[0, 10]'));
     await this.sortService.setRawMovies(await this.getId(), recentMovies);
-  }
-  async update(sortService: SortService) {
-    if (await sortService.sortedMoviesHasChanged(await Page1Component.this.getId())) {
-      Page1Component.this.movies = await sortService.getSortedMovies(await Page1Component.this.getId());
-      Page1Component.this.loading = false;
-    }
   }
   getId(): number {
     return 1;
   }
 
-  handleResponsive(event: any) {
-    this.breakpoint = 6;
-    if (event.innerWidth <= 800) {
-      this.breakpoint = 3;
-    }
-    if (event.innerWidth <= 400) {
-      this.breakpoint = 1;
-    }
-  }
-
-  onClickMe(index: number) {
-    const dialogRef = this.dialog.open(MovieDialogComponent, {
-      data: {
-        name: this.movies[index].getTitle(),
-        synopsis: this.movies[index].getSynopsis(),
-        poster: this.movies[index].getPosterLink(),
-        releasedate: this.movies[index].getReleaseDate().toDateString();
-      }
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-    });
-  }
-
-  async onPaginateChange(event: PageEvent) {
-    this.loading = true;
-    const start = event.pageIndex * event.pageSize;
-    const end = start + event.pageSize - 1;
-    await this.sortService.setRawMovies(await this.getId(), await ((await new MovieService()).getRecentMovies( await new
-      ParamInterval(`[${start}, ${end}]`))));
+  async getDataToPrint(movie: Movie) {
+    const data = await super.getDataToPrint(movie);
+    data.data['rate'] = 'rate:' + await movie.getRate();
+    return data;
   }
 }
