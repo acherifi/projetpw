@@ -57,7 +57,8 @@ export class Page1Component implements OnInit {
       data: {
         name: this.movies[index].getTitle(),
         synopsis: this.movies[index].getSynopsis(),
-        poster: this.movies[index].getPosterLink()
+        poster: this.movies[index].getPosterLink(),
+        releasedate: this.movies[index].getReleaseDate().toDateString();
       }
     });
 

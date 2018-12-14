@@ -95,7 +95,7 @@ export class Movie {
     this.rate = jsonResult.infomovie.rate;
 
     const tempoDate = await jsonResult.infomovie.releasedate.split('-');
-    this.releaseDate = await new Date(tempoDate[0], tempoDate[1], tempoDate[2]);
+    this.releaseDate = await new Date(tempoDate[0], await parseInt(tempoDate[1], 10) - 1, tempoDate[2]);
   }
   private async forEachFillData(array) {
     const tempo = [];
