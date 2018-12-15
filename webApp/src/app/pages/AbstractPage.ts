@@ -13,6 +13,7 @@ export abstract class AbstractPage {
     this.sortService.addObserversHandlers(this.update);
   }
   handleResponsive(event: any) {
+    console.log(this.getId());
     this.breakpoint = 6;
     if (event.innerWidth <= 800) {
       this.breakpoint = 3;

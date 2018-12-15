@@ -10,7 +10,7 @@ import {AbstractPage} from '../AbstractPage';
 @Component({
   selector: 'app-page2',
   templateUrl: './page2.component.html',
-  styleUrls: ['./page2.component.css']
+  styleUrls: ['../page.component.css']
 })
 export class Page2Component extends AbstractPage implements OnInit {
   static this: any;

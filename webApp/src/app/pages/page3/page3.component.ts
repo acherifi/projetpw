@@ -5,7 +5,7 @@ import {SortService} from '../../../services/SortService';
 @Component({
   selector: 'app-page3',
   templateUrl: './page3.component.html',
-  styleUrls: ['./page3.component.css']
+  styleUrls: ['../page.component.css']
 })
 export class Page3Component implements OnInit {
 
