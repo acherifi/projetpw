@@ -32,7 +32,6 @@ module.exports = class AllocineMoviesManager {
     return allMovies;
   }
   async doRequest(toAddtoUrl) {
-    console.log(this.urlAllocine+toAddtoUrl);
     const res = await fetch(this.urlAllocine+toAddtoUrl, {
       method: 'GET',
       headers: {
@@ -60,7 +59,7 @@ module.exports = class AllocineMoviesManager {
       for (let i = 0; i < movieAllocine.genre.length; ++i) {
         genres.push(movieAllocine.genre[i].$);
       }
-      const result =  {
+      const result = {
         id: movieAllocine.code,
         title: title,
         genres: genres,
