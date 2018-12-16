@@ -40,6 +40,7 @@ export class Page1Component extends AbstractPage implements OnInit {
       actors += actor;
     });
     data.data['actors'] = actors;
+    data.data['id'] = 'id' + await movie.getId();
     return data;
   }
 }

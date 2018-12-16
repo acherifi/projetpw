@@ -29,6 +29,11 @@ export class Page2Component extends AbstractPage implements OnInit {
     super.handleResponsive(window);
     const connectedUser = await (await this.apiToolService.getUserService()).getConnectedUser();
     const watchlist: Watchlist = await connectedUser.getWatchlist();
+    /*
+    await (await this.apiToolService.getWatchListService()).addMovieToWatchlist(watchlist, '185719');
+    await (await this.apiToolService.getWatchListService()).addMovieToWatchlist(watchlist, '1');
+    await (await this.apiToolService.getWatchListService()).addMovieToWatchlist(watchlist, '218476');
+    */
     const movies = await(await this.apiToolService.getMovieService()).getMoviesByIds(await watchlist.getMoviesIds());
     await this.sortService.setRawMovies(await this.getId(), movies);
   }
@@ -40,6 +45,12 @@ export class Page2Component extends AbstractPage implements OnInit {
   }
   getId(): number {
     return 2;
+  }
+  async getDataToPrint(movie: Movie) {
+    const data = await super.getDataToPrint(movie);
+    const rate = 'Rate:' + await movie.getRate();
+    data.data['rate'] = rate;
+    return data;
   }
 
 }

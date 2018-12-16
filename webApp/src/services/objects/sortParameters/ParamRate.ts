@@ -1,6 +1,6 @@
 import { AbstractParam } from './AbstractParam';
-export class ParamLongitude extends AbstractParam {
+export class ParamRate extends AbstractParam {
   getKey(): String {
-    return 'longitude';
+    return 'rate';
   }
 }

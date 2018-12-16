@@ -3,6 +3,7 @@ import { IParam } from './sortParameters/IParam';
 import {ParamDirector} from './sortParameters/ParamDirector';
 import { ParamGenre} from './sortParameters/ParamGenre';
 import { ParamReleaseDate } from './sortParameters/ParamReleaseDate';
+import { ParamRate} from './sortParameters/ParamRate';
 export class Movie {
 
   private theaters: Theater[];
@@ -73,6 +74,8 @@ export class Movie {
       return await (await this.genres.find(compareFunction)) !== undefined;
     } else if (await param.getKey() === (await (await new ParamReleaseDate('')).getKey())) {
       return await (await this.releaseDate.toDateString() === valueParam);
+    } else if (await param.getKey() === (await (await new ParamRate('')).getKey())) {
+      return ('' + this.rate === valueParam);
     }
     return false;
   }
@@ -99,9 +102,7 @@ export class Movie {
   }
   private async forEachFillData(array) {
     const tempo = [];
-    if (array !== undefined) {
-      await array.forEach(async x => await tempo.push(x));
-    }
+    await array.forEach(async x => await tempo.push(x));
     return tempo;
   }
 }

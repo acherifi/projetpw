@@ -132,6 +132,6 @@ module.exports = class AllocineMoviesManager {
   async getRate(movieAllocine) {
     const pressRate = movieAllocine.statistics.pressRating;
     const userRating = movieAllocine.statistics.userRating;
-    return (pressRate + userRating)/2;
+    return ((pressRate + userRating)/2).toFixed(1);
   }
 };
