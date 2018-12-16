@@ -99,7 +99,9 @@ export class Movie {
   }
   private async forEachFillData(array) {
     const tempo = [];
-    await array.forEach(async x => await tempo.push(x));
+    if (array !== undefined) {
+      await array.forEach(async x => await tempo.push(x));
+    }
     return tempo;
   }
 }

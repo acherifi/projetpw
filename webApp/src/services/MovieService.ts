@@ -6,21 +6,21 @@ export class MovieService {
   constructor() {
 
   }
-  async getMovieById(id: number): Promise<Movie> {
-    const jsonResult = await this.doRequest('' + id);
+  async getMovieById(id: String): Promise<Movie> {
+    const jsonResult = await this.doRequest( id);
     const m = await new Movie();
     await m.init(jsonResult);
     return m;
   }
-  async getMovieByIdWithShowTimes(id: number, params: IParam[]): Promise<Movie> {
-    let toAddToRequest = String(id) + '/?';
+  async getMovieByIdWithShowTimes(id: String, params: IParam[]): Promise<Movie> {
+    let toAddToRequest = id + '/?';
     await params.forEach(x => toAddToRequest += x.getKey() + '=' + x.getValue() + '&');
     const jsonResult = await this.doRequest(toAddToRequest);
     const m = await new Movie();
     await m.init(jsonResult);
     return m;
   }
-  async getMoviesByIds(ids: number[]): Promise<Movie[]> {
+  async getMoviesByIds(ids: String[]): Promise<Movie[]> {
     const res = [];
     for (let i =  0; i < ids.length; ++i) {
         await res.push(await this.getMovieById(ids[i]));

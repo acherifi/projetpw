@@ -20,10 +20,13 @@ export class UserService {
   async getAllUsers(): Promise<User[]> {
     const resultRequest =  await this.doGetRequest('');
     const users: User[] = [];
+
     for (let i = 0; i < resultRequest.length; ++i) {
       const user = await new User(resultRequest[i].email, resultRequest[i].password);
       await user.setId(resultRequest[i].id);
-      await user.setWatchlist(await (await new WatchlistService()).getWatchlistById(resultRequest[i].idwatch));
+      const watchlistService = await new WatchlistService();
+      const wlTempo = await watchlistService.getWatchlistById(resultRequest[i].idwatch);
+      await user.setWatchlist(wlTempo);
       await users.push(user);
     }
     return users;
@@ -32,10 +35,10 @@ export class UserService {
     return await this.doPostRequest('add',
     {email: await user.getEmail(), password: await user.getPassword()});
   }
-  setConnectedUser(user: User) {
+  async setConnectedUser(user: User) {
     this.connectedUser = user;
   }
-  getConnectedUser() {
+  async getConnectedUser() {
     return this.connectedUser;
   }
   private async doGetRequest(params: string) {

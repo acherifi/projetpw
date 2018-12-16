@@ -11,13 +11,13 @@ export class APIToolService {
     this.userService = new UserService();
     this.movieService = new MovieService();
   }
-  getWatchListService(): WatchlistService {
+  async getWatchListService(): Promise<WatchlistService> {
     return this.watchlistService;
   }
-  getUserService(): UserService {
+  async getUserService(): Promise<UserService> {
     return this.userService;
   }
-  getMovieService(): MovieService {
+  async getMovieService(): Promise<MovieService> {
     return this.movieService;
   }
 }

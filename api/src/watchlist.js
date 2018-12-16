@@ -5,7 +5,7 @@ const Index=require('./index');
 
 router.get('/:id', async function(req, res) {
   await res.header('Content-Type', 'application/json');
-  await res.write(JSON.stringify(await (new MongoWatchlistManager(Index.database)).getWatchlistById(req.params.id)));
+  await res.write(JSON.stringify(await ( await new MongoWatchlistManager(Index.database)).getWatchlistById(req.params.id)));
   await res.end();
 });
 router.post('/:id/add', async function(req, res) {

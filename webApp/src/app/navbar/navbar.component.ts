@@ -4,6 +4,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import {UserService} from '../../services/UserService';
 import {WatchlistService} from '../../services/WatchlistService';
 import {User} from '../../services/objects/User';
+import {APIToolService} from '../../services/APIToolService';
 
 @Component({
   selector: 'app-navbar',
@@ -15,11 +16,11 @@ export class NavbarComponent implements OnInit {
   iconPath = 'assets/clap.svg';
   buttons: String[] = ['Connexion', 'Inscription'];
 
-  constructor(iconRegistry: MatIconRegistry, sanitizer: DomSanitizer) {
+  constructor(iconRegistry: MatIconRegistry, sanitizer: DomSanitizer, private apiToolServiceTempo: APIToolService) {
     iconRegistry.addSvgIcon('clap', sanitizer.bypassSecurityTrustResourceUrl(this.iconPath));
   }
 
-  ngOnInit() {
+  async ngOnInit() {
   }
   async tempoTestAPI() {
 

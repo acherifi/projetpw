@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog, PageEvent } from '@angular/material';
 import { MovieDialogComponent } from 'src/app/movie-dialog/movie-dialog.component';
 import {SortService} from '../../../services/SortService';
-import {MovieService} from '../../../services/MovieService';
+import {APIToolService} from '../../../services/APIToolService';
 import {Movie} from '../../../services/objects/Movie';
 import {ParamInterval} from '../../../services/objects/sortParameters/ParamInterval';
 import {AbstractPage} from '../AbstractPage';
@@ -14,13 +14,13 @@ import {AbstractPage} from '../AbstractPage';
 })
 export class Page1Component extends AbstractPage implements OnInit {
   static this: any;
-  constructor(protected sortService: SortService, protected movieService: MovieService, protected dialog: MatDialog) {
-    super(sortService, movieService, dialog);
+  constructor(protected sortService: SortService, protected apiToolService: APIToolService, protected dialog: MatDialog) {
+    super(sortService, apiToolService, dialog);
     Page1Component.this = this;
   }
   async ngOnInit() {
     super.handleResponsive(window);
-    const recentMovies = await this.movieService.getRecentMovies(await new ParamInterval('[0, 10]'));
+    const recentMovies = await (await this.apiToolService.getMovieService()).getRecentMovies(await new ParamInterval('[0, 10]'));
     await this.sortService.setRawMovies(await this.getId(), recentMovies);
   }
   async update(sortService: SortService) {

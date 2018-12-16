@@ -17,7 +17,7 @@ import { SelectNamesComponent } from './sortbar/sorttools/select-names/select-na
 import { SelectNumbersComponent } from './sortbar/sorttools/select-numbers/select-numbers.component';
 import { MovieDialogComponent } from './movie-dialog/movie-dialog.component';
 import { SortService} from '../services/SortService';
-import {MovieService} from '../services/MovieService';
+import {APIToolService} from '../services/APIToolService';
 
 @NgModule({
   declarations: [
@@ -49,7 +49,7 @@ import {MovieService} from '../services/MovieService';
   entryComponents: [
     MovieDialogComponent
   ],
-  providers: [SortService, MovieService],
+  providers: [SortService, APIToolService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
