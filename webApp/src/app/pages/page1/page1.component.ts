@@ -13,6 +13,7 @@ import {AbstractPage} from '../AbstractPage';
   styleUrls: ['../page.component.css']
 })
 export class Page1Component extends AbstractPage implements OnInit {
+
   static this: any;
   constructor(protected sortService: SortService, protected apiToolService: APIToolService, protected dialog: MatDialog) {
     super(sortService, apiToolService, dialog);
@@ -20,14 +21,10 @@ export class Page1Component extends AbstractPage implements OnInit {
   }
   async ngOnInit() {
     super.handleResponsive(window);
-    const recentMovies = await (await this.apiToolService.getMovieService()).getRecentMovies(await new ParamInterval('[0, 10]'));
-    await this.sortService.setRawMovies(await this.getId(), recentMovies);
+    await this.loadRawMovies(this.defaultMovieInterval);
   }
   async update(sortService: SortService) {
-    if (await sortService.sortedMoviesHasChanged(await Page1Component.this.getId())) {
-      Page1Component.this.movies = await sortService.getSortedMovies(await Page1Component.this.getId());
-      Page1Component.this.loading = false;
-    }
+    super.updateAbstract(sortService, Page1Component.this);
   }
   getId(): number {
     return 1;
@@ -42,5 +39,9 @@ export class Page1Component extends AbstractPage implements OnInit {
     data.data['actors'] = actors;
     data.data['id'] = 'id' + await movie.getId();
     return data;
+  }
+  async loadRawMovies(interval: ParamInterval) {
+    const recentMovies = await (await this.apiToolService.getMovieService()).getRecentMovies(interval);
+    await this.sortService.setRawMovies(await this.getId(), recentMovies);
   }
 }

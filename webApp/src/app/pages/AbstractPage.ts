@@ -9,6 +9,7 @@ export abstract class AbstractPage {
   breakpoint = 6;
   loading = true;
   movies: Movie[] = null;
+  protected defaultMovieInterval: ParamInterval = new ParamInterval('[0, 10[');
   constructor(protected sortService: SortService, protected apiToolService: APIToolService,  protected dialog: MatDialog) {
     this.sortService.addObserversHandlers(this.update);
   }
@@ -25,12 +26,13 @@ export abstract class AbstractPage {
     this.handleResponsive(event.target);
   }
   abstract async update(sortService: SortService);
+  abstract async loadRawMovies(interval: ParamInterval);
   async onPaginateChange(event: PageEvent) {
     this.loading = true;
     const start = event.pageIndex * event.pageSize;
     const end = start + event.pageSize - 1;
-    await this.sortService.setRawMovies(await this.getId(), await (await this.apiToolService.getMovieService()).getRecentMovies( await new
-      ParamInterval(`[${start}, ${end}]`)));
+    await this.loadRawMovies(await new
+      ParamInterval(`[${start}, ${end}]`));
   }
   async onClickMe(index: number) {
     const dialogRef = this.dialog.open(MovieDialogComponent,
@@ -50,5 +52,11 @@ export abstract class AbstractPage {
       releasedate: movie.getReleaseDate().toDateString()
     }};
     return data;
+  }
+  async updateAbstract(sortService: SortService, page: AbstractPage) {
+    if (await sortService.sortedMoviesHasChanged(await page.getId())) {
+      page.movies = await sortService.getSortedMovies(await page.getId());
+      page.loading = false;
+    }
   }
 }

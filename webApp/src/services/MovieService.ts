@@ -20,9 +20,18 @@ export class MovieService {
     await m.init(jsonResult);
     return m;
   }
-  async getMoviesByIds(ids: String[]): Promise<Movie[]> {
+  async getMoviesByIdsWithShowTimes(ids: String[], interval: ParamInterval, params: IParam[]): Promise<Movie[]> {
     const res = [];
-    for (let i =  0; i < ids.length; ++i) {
+    const intervalConvert = await interval.getArrayValue();
+    for (let i =  intervalConvert[0]; i < ids.length && i < intervalConvert[1]; ++i) {
+        await res.push(await this.getMovieByIdWithShowTimes(ids[i], params));
+    }
+    return res;
+  }
+  async getMoviesByIds(ids: String[], interval: ParamInterval): Promise<Movie[]> {
+    const res = [];
+    const intervalConvert = await interval.getArrayValue();
+    for (let i =  intervalConvert[0]; i < ids.length && i < intervalConvert[1]; ++i) {
         await res.push(await this.getMovieById(ids[i]));
     }
     return res;

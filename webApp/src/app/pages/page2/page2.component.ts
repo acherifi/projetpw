@@ -20,7 +20,22 @@ export class Page2Component extends AbstractPage implements OnInit {
     Page2Component.this = this;
   }
   async ngOnInit() {
-    await console.log('ngInit page2');
+    super.handleResponsive(window);
+    await this.loadRawMovies(this.defaultMovieInterval);
+  }
+  async update(sortService: SortService) {
+    super.updateAbstract(sortService, Page2Component.this);
+  }
+  getId(): number {
+    return 2;
+  }
+  async getDataToPrint(movie: Movie) {
+    const data = await super.getDataToPrint(movie);
+    const rate = 'Rate:' + await movie.getRate();
+    data.data['rate'] = rate;
+    return data;
+  }
+  async loadRawMovies(interval: ParamInterval) {
     /*Tempo*/
     const users = await (await this.apiToolService.getUserService()).getAllUsers();
     await (await this.apiToolService.getUserService()).setConnectedUser(users[0]);
@@ -34,23 +49,8 @@ export class Page2Component extends AbstractPage implements OnInit {
     await (await this.apiToolService.getWatchListService()).addMovieToWatchlist(watchlist, '1');
     await (await this.apiToolService.getWatchListService()).addMovieToWatchlist(watchlist, '218476');
     */
-    const movies = await(await this.apiToolService.getMovieService()).getMoviesByIds(await watchlist.getMoviesIds());
+    const movies = await(await this.apiToolService.getMovieService()).getMoviesByIds(await watchlist.getMoviesIds(),
+    interval);
     await this.sortService.setRawMovies(await this.getId(), movies);
   }
-  async update(sortService: SortService) {
-    if (await sortService.sortedMoviesHasChanged(await Page2Component.this.getId())) {
-      Page2Component.this.movies = await sortService.getSortedMovies(await Page2Component.this.getId());
-      Page2Component.this.loading = false;
-    }
-  }
-  getId(): number {
-    return 2;
-  }
-  async getDataToPrint(movie: Movie) {
-    const data = await super.getDataToPrint(movie);
-    const rate = 'Rate:' + await movie.getRate();
-    data.data['rate'] = rate;
-    return data;
-  }
-
 }

@@ -7,7 +7,7 @@ import {SortService} from '../../services/SortService';
 export abstract class AbstractSortBar {
   @Input() dataGenres: string[];
   constructor(protected sortService: SortService) {
-    this.dataGenres = ['ceci est un test'];
+    this.dataGenres = [''];
   }
   async update(id: number, sortService: SortService) {
     if (await sortService.rawMoviesHasChanged(id)) {
