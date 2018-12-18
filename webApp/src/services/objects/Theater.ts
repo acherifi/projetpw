@@ -1,4 +1,7 @@
 import { Show } from './Show';
+import { IParam } from './sortParameters/IParam';
+import { ParamCity} from './sortParameters/ParamCity';
+import { ParamCinemaName} from './sortParameters/ParamCinemaName';
 export class Theater {
   private city: String;
   private name: String;
@@ -21,6 +24,15 @@ export class Theater {
       res += await this.shows[i].toString();
     }
     return res;
+  }
+  async contains(param: IParam): Promise<boolean> {
+    const value = await param.getValue();
+    if (await param.getKey() === (await (await new ParamCity('')).getKey())) {
+      return (this.city === value);
+    } else if (await param.getKey() === (await (await new ParamCinemaName('')).getKey())) {
+      return (this.name === value);
+    }
+    return false;
   }
   private async fillData(filmShow) {
     this.city = filmShow.city;

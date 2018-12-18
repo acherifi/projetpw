@@ -4,6 +4,7 @@ import {ParamDirector} from './sortParameters/ParamDirector';
 import { ParamGenre} from './sortParameters/ParamGenre';
 import { ParamReleaseDate } from './sortParameters/ParamReleaseDate';
 import { ParamRate} from './sortParameters/ParamRate';
+import { ParamCity} from './sortParameters/ParamCity';
 export class Movie {
 
   private theaters: Theater[];
@@ -76,8 +77,14 @@ export class Movie {
       return await (await this.releaseDate.toDateString() === valueParam);
     } else if (await param.getKey() === (await (await new ParamRate('')).getKey())) {
       return ('' + this.rate === valueParam);
+    } else {
+      for (let i = 0; i < this.theaters.length; ++i) {
+        if (await this.theaters[i].contains(param)) {
+          return true;
+        }
+      }
+      return false;
     }
-    return false;
   }
   private async fillData(jsonResult) {
     const theaters = [];

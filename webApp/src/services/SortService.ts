@@ -40,12 +40,27 @@ export class SortService {
     }
   }
   async getParams(idPage: number): Promise<IParam[]> {
-    const tempoParams = [];
+    const tempoParams: IParam[] = [];
     const mapParams = await this.sortParameters.get(idPage);
-    await Array.from(await mapParams.keys()).forEach( async k => {
-      await tempoParams.push(mapParams.get(k));
-    });
+    if (mapParams !== undefined) {
+      await (await Array.from(await mapParams.keys())).forEach( async k => {
+        const params = await mapParams.get(k);
+        for (let i = 0; i < params.length; ++i) {
+          await tempoParams.push(params[i]);
+        }
+      });
+    }
     return tempoParams;
+  }
+  async getParamsByKey(idPage: number, key: String): Promise<IParam[]> {
+    const mapParams = await this.sortParameters.get(idPage);
+    if (mapParams !== undefined) {
+      const res = await mapParams.get(key);
+      if (res !== undefined) {
+        return res;
+      }
+    }
+    return [];
   }
   /**
    * Pour la même clé de paramètres c'est un "ou" pour les films et quand c'est une autre clé c'est un "et"

@@ -63,15 +63,22 @@ export class Page3Component extends AbstractPage implements OnInit {
       const moviesIds = await (await (await (await this.apiToolService.getUserService()).getConnectedUser())
       .getWatchlist()).getMoviesIds();
       const params = [await new ParamLatitude(latitude + ''), await new ParamLongitude(longitude + '')];
-      const movies =  await (await this.apiToolService.getMovieService()).getMoviesByIdsWithShowTimes(moviesIds,
+      const tempoMovies =  await (await this.apiToolService.getMovieService()).getMoviesByIdsWithShowTimes(moviesIds,
         interval, params);
+      // because filter isn't synchronous
+      const movies = [];
+      await tempoMovies.forEach(async x => {
+        if (await x.getTheaters().length > 0) {
+          await movies.push(x);
+        }
+      });
       await this.sortService.setRawMovies(await this.getId(), movies);
   });
   await navigator.geolocation.getCurrentPosition(async (position) => {
     await loadRawMovies(position.coords.latitude, position.coords.longitude);
   }, async (error) => {
     await loadRawMovies(this.defaultCoordinate[0], this.defaultCoordinate[1]);
-  });
+  }, {maximumAge: Infinity, timeout: 5000});
   }
 
 }
