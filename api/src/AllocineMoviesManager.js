@@ -15,9 +15,6 @@ module.exports = class AllocineMoviesManager {
       resultShowTimeFromAllocine = await this.doRequest('showtimelist?'+await this.getPartnerParameter()+
       '&movie='+movieId+'&count=5000'+'&lat='+parametersShowTimes.latitude+'&long='+
       parametersShowTimes.longitude+'&radius='+parametersShowTimes.radius+'&format=json');
-      console.log(this.urlAllocine+'showtimelist?'+await this.getPartnerParameter()+
-      '&movie='+movieId+'&count=5000'+'&lat='+parametersShowTimes.latitude+'&long='+
-      parametersShowTimes.longitude+'&radius='+parametersShowTimes.radius+'&format=json');
     }
     const showTime = await this.formatShowTime(resultShowTimeFromAllocine);
     return {infomovie: movie, infoshowtime: showTime};
@@ -70,11 +67,15 @@ module.exports = class AllocineMoviesManager {
         actors: await this.getPeople(movieAllocine, this.codeRoleActor),
         synopsis: movieAllocine.synopsis,
         releasedate: movieAllocine.release.releaseDate,
-        poster: movieAllocine.media[0].thumbnail.href,
+        poster: await this.convertHttpStringToHttpsString(movieAllocine.media[0].thumbnail.href),
         rate: await this.getRate(movieAllocine),
       };
       return result;
     }
+  }
+  async convertHttpStringToHttpsString(request) {
+    // 4 for http
+    return (await request.slice(0, 4) + 's'+await request.slice(4));
   }
   async formatShowTime(allocineResult) {
     const theaters = [];
