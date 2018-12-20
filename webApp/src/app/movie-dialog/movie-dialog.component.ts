@@ -1,10 +1,12 @@
 import { Component, OnInit, Inject, Input } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { IButton } from '../button/IButton';
 
 
 export interface DialogData {
   name: String;
   synopsis: String;
+  buttons: IButton[];
 }
 
 @Component({
@@ -13,6 +15,7 @@ export interface DialogData {
   styleUrls: ['./movie-dialog.component.css']
 })
 export class MovieDialogComponent implements OnInit {
+  @Input() buttons: IButton[];
   infos: string[];
   keys: string[];
 
@@ -20,8 +23,9 @@ export class MovieDialogComponent implements OnInit {
   }
 
   async ngOnInit() {
+    this.buttons = this.data.buttons;
     this.keys = Object.keys(this.data);
-    this.keys = this.keys.filter(x => x !== 'poster');
+    this.keys = this.keys.filter(x => x !== 'poster' && x !== 'buttons');
   }
 
 }

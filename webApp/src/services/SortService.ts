@@ -103,11 +103,13 @@ export class SortService {
   }
   async setRawMovies(idPage: number, movies: Movie[]) {
     await this.rawMovies.set(idPage, movies);
-    await this.setTrueToSortedParametersChanged(idPage);
-    await this.setTrueToRawDataMovies(idPage);
   }
-  async getRawMovies(idPage: number) {
-    return await this.rawMovies.get(idPage);
+  async getRawMovies(idPage: number): Promise<Movie[]> {
+    const res = await this.rawMovies.get(idPage);
+    if (res === undefined ) {
+      return [];
+    }
+    return res;
   }
   async addObserversHandlers(handler: HandlerObserverSortService) {
     if (await this.handlersObservers.findIndex(x => x === handler) === -1) {
@@ -119,12 +121,17 @@ export class SortService {
       await this.handlersObservers[i](this);
     }
   }
-  private async setTrueToRawDataMovies(idPage: number) {
+  async setTrueToAllRawDataMovies() {
+    const keys = await Array.from(await this.rawMovies.keys());
+    await keys.forEach(async x => await this.setTrueToRawDataMovies(x));
+  }
+  async setTrueToRawDataMovies(idPage: number) {
+    await console.log('page: ' + idPage);
     await this.rawDataHasChanged.set(idPage, true);
     await this.callHandlersObservers();
     await this.rawDataHasChanged.set(idPage, false);
   }
-  private async setTrueToSortedParametersChanged(idPage: number) {
+  async setTrueToSortedParametersChanged(idPage: number) {
     await this.sortedParametersHasChanged.set(idPage, true);
     await this.callHandlersObservers();
     await this.sortedParametersHasChanged.set(idPage, false);

@@ -7,6 +7,7 @@ import {Movie} from '../../../services/objects/Movie';
 import {Watchlist} from '../../../services/objects/Watchlist';
 import {ParamInterval} from '../../../services/objects/sortParameters/ParamInterval';
 import {AbstractPage} from '../AbstractPage';
+import {IButton} from '../../button/IButton';
 
 @Component({
   selector: 'app-page2',
@@ -22,6 +23,8 @@ export class Page2Component extends AbstractPage implements OnInit {
   async ngOnInit() {
     super.handleResponsive(window);
     await this.loadRawMovies(this.defaultMovieInterval);
+    await this.sortService.setTrueToSortedParametersChanged(await this.getId());
+    await this.sortService.setTrueToRawDataMovies(await this.getId());
   }
   async update(sortService: SortService) {
     super.updateAbstract(sortService, Page2Component.this);
@@ -53,5 +56,8 @@ export class Page2Component extends AbstractPage implements OnInit {
     const movies = await(await this.apiToolService.getMovieService()).getMoviesByIds(await watchlist.getMoviesIds(),
     interval);
     await this.sortService.setRawMovies(await this.getId(), movies);
+  }
+  async clickOnAddToWatchlist(b: IButton) {
+    super.clickOnAddToWatchlistAbstract(b, Page2Component.this);
   }
 }

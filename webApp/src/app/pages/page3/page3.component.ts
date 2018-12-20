@@ -10,7 +10,7 @@ import {Show} from '../../../services/objects/Show';
 import {ParamLatitude} from '../../../services/objects/sortParameters/ParamLatitude';
 import {ParamLongitude} from '../../../services/objects/sortParameters/ParamLongitude';
 import {ParamInterval} from '../../../services/objects/sortParameters/ParamInterval';
-
+import {IButton} from '../../button/IButton';
 
 @Component({
   selector: 'app-page3',
@@ -19,15 +19,36 @@ import {ParamInterval} from '../../../services/objects/sortParameters/ParamInter
 })
 export class Page3Component extends AbstractPage implements OnInit {
   static this: any;
-  defaultCoordinate = [-1.444621, 49.047808]; // Coutances
+  defaultCoordinate = [49.047808, -1.444621]; // Coutances
+  saveCoordinates: number[];
   constructor(protected sortService: SortService, protected apiToolService: APIToolService, protected dialog: MatDialog) {
     super(sortService, apiToolService, dialog);
     Page3Component.this = this;
+    navigator.geolocation.getCurrentPosition(async (position) => {
+      this.saveCoordinates = [position.coords.latitude, position.coords.longitude];
+      }, async (error) => {
+        console.log('error', error);
+      }, {enableHighAccuracy: false, maximumAge: Infinity, timeout: 5000});
+  }
+
+  getGeoPosition() {
+    return new Promise((res, rej) => {
+      navigator.geolocation.getCurrentPosition(res, rej, {enableHighAccuracy: false, maximumAge: Infinity, timeout:
+        5000});
+    });
   }
 
   async ngOnInit() {
     super.handleResponsive(window);
+    try {
+      const position = await this.getGeoPosition();
+      console.log(position);
+    } catch (e) {
+      console.log(e);
+    }
     await this.loadRawMovies(this.defaultMovieInterval);
+    await this.sortService.setTrueToRawDataMovies(await this.getId());
+    await this.sortService.setTrueToSortedParametersChanged(await this.getId());
   }
 
   async update(sortService: SortService) {
@@ -58,7 +79,7 @@ export class Page3Component extends AbstractPage implements OnInit {
     await (await this.apiToolService.getUserService()).setConnectedUser(users[0]);
     /*fin tempo*/
     const convertInterval = await interval.getArrayValue();
-    const loadRawMovies = (async (latitude, longitude) => {
+    const loadRawMoviesPrivate = (async (latitude, longitude) => {
       await console.log('coord: ' + latitude + ' ; ' + longitude);
       const moviesIds = await (await (await (await this.apiToolService.getUserService()).getConnectedUser())
       .getWatchlist()).getMoviesIds();
@@ -73,12 +94,16 @@ export class Page3Component extends AbstractPage implements OnInit {
         }
       });
       await this.sortService.setRawMovies(await this.getId(), movies);
-  });
-  await navigator.geolocation.getCurrentPosition(async (position) => {
-    await loadRawMovies(position.coords.latitude, position.coords.longitude);
-  }, async (error) => {
-    await loadRawMovies(this.defaultCoordinate[0], this.defaultCoordinate[1]);
-  }, {maximumAge: Infinity, timeout: 5000});
+    });
+    if (this.saveCoordinates === undefined) {
+      await loadRawMoviesPrivate(this.defaultCoordinate[0], this.defaultCoordinate[1]);
+    } else {
+        await loadRawMoviesPrivate(this.saveCoordinates[0], this.saveCoordinates[1]);
+    }
+  }
+
+  async clickOnAddToWatchlist(b: IButton) {
+    super.clickOnAddToWatchlistAbstract(b, Page3Component.this);
   }
 
 }

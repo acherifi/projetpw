@@ -7,7 +7,7 @@
   </div>
 </div>
 
-
+<!--mat-button mat-dialog-close -->
 <div mat-dialog-actions>
-    <button mat-button mat-dialog-close>+ Watchlist</button>
+    <button mat-button  *ngFor="let b of buttons" (click)="b.getHandlerClick()(b)">{{b.getName()}}</button>
 </div>

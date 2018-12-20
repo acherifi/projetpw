@@ -6,6 +6,9 @@ import {APIToolService} from '../../../services/APIToolService';
 import {Movie} from '../../../services/objects/Movie';
 import {ParamInterval} from '../../../services/objects/sortParameters/ParamInterval';
 import {AbstractPage} from '../AbstractPage';
+import {IButton} from '../../button/IButton';
+import {ButtonMovieDialog} from '../../button/ButtonMovieDialog';
+import {User} from '../../../services/objects/User';
 
 @Component({
   selector: 'app-page1',
@@ -22,6 +25,8 @@ export class Page1Component extends AbstractPage implements OnInit {
   async ngOnInit() {
     super.handleResponsive(window);
     await this.loadRawMovies(this.defaultMovieInterval);
+    await this.sortService.setTrueToSortedParametersChanged(await this.getId());
+    await this.sortService.setTrueToRawDataMovies(await this.getId());
   }
   async update(sortService: SortService) {
     super.updateAbstract(sortService, Page1Component.this);
@@ -38,7 +43,11 @@ export class Page1Component extends AbstractPage implements OnInit {
     });
     data.data['actors'] = actors;
     data.data['id'] = 'id' + await movie.getId();
+
     return data;
+  }
+  async clickOnAddToWatchlist(b: IButton) {
+    super.clickOnAddToWatchlistAbstract(b, Page1Component.this);
   }
   async loadRawMovies(interval: ParamInterval) {
     const recentMovies = await (await this.apiToolService.getMovieService()).getRecentMovies(interval);
