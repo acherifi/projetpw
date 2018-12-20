@@ -79,7 +79,6 @@ export abstract class AbstractPage {
     } else if (await sortService.rawMoviesHasChanged(await page.getId())) {
       // changed only with remove and add watchlist
       await page.loadRawMovies(page.currentInterval);
-      await console.log('try refresh: ' + await page.getId());
       page.movies = await sortService.getSortedMovies(await page.getId());
     }
   }

@@ -126,7 +126,6 @@ export class SortService {
     await keys.forEach(async x => await this.setTrueToRawDataMovies(x));
   }
   async setTrueToRawDataMovies(idPage: number) {
-    await console.log('page: ' + idPage);
     await this.rawDataHasChanged.set(idPage, true);
     await this.callHandlersObservers();
     await this.rawDataHasChanged.set(idPage, false);

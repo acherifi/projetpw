@@ -50,7 +50,7 @@ export class MovieService {
     return res;
   }
   private async doRequest(params: String) {
-      const result = await fetch('http://localhost:4000/movies/' + params, {
+      const result = await fetch('https://localhost:4000/movies/' + params, {
         method: 'GET',
         headers: {
           Accept: 'application/json',

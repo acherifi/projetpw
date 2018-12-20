@@ -1,6 +1,6 @@
 import { Watchlist} from './objects/Watchlist';
 export class WatchlistService {
-  private url = 'http://localhost:4000/watchlist/';
+  private url = 'https://localhost:4000/watchlist/';
 
   async getWatchlistById(id: string): Promise<Watchlist> {
     const res = await this.doGetRequest(id);

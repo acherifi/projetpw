@@ -3,7 +3,7 @@ import { WatchlistService } from './WatchlistService';
 
 export class UserService {
   private connectedUser: User;
-  private url = 'http://localhost:4000/users/';
+  private url = 'https://localhost:4000/users/';
 
   async getUserByMail(email: string): Promise<User> {
     const resultRequest =  await this.doGetRequest('');

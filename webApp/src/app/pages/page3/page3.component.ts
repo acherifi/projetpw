@@ -80,7 +80,6 @@ export class Page3Component extends AbstractPage implements OnInit {
     /*fin tempo*/
     const convertInterval = await interval.getArrayValue();
     const loadRawMoviesPrivate = (async (latitude, longitude) => {
-      await console.log('coord: ' + latitude + ' ; ' + longitude);
       const moviesIds = await (await (await (await this.apiToolService.getUserService()).getConnectedUser())
       .getWatchlist()).getMoviesIds();
       const params = [await new ParamLatitude(latitude + ''), await new ParamLongitude(longitude + '')];
