@@ -31,9 +31,8 @@ export class AccountformComponent implements OnInit {
   }
   async handlerClickCreate(answerMail, answerPwd) {
     if (await this.checkValidityEmailAndPassword()) {
-      const userExist: User = await this.userService.getUserByMail(answerMail);
-      const newUser = await new User(answerMail, answerPwd);
-      if (await this.userService.addUser(newUser)) {
+      const newUser: User = await this.userService.addUser(await new User(answerMail, answerPwd));
+      if (newUser !== undefined ) {
         await this.doRedirection(newUser);
       }
     }
@@ -46,7 +45,6 @@ export class AccountformComponent implements OnInit {
         await this.doRedirection(userExist);
       }
     }
-
   }
   getErrorMessageEmail() {
     return this.emailControl.hasError('required') ? 'You must enter a value' :
@@ -59,7 +57,6 @@ export class AccountformComponent implements OnInit {
   private async doRedirection(user: User) {
     await this.userService.setConnectedUser(user);
     this.router.navigateByUrl('app', {skipLocationChange: true});
-    this.location.replaceState('app');
   }
 
 

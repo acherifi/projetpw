@@ -1,8 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnChanges } from '@angular/core';
 import { Router } from '@angular/router';
 import { Location} from '@angular/common';
 import { APIToolService } from '../services/APIToolService';
-import { SortService} from '../services/SortService';
 import Cards from './data.provider';
 
 @Component({
@@ -14,7 +13,6 @@ export class AppComponent implements OnInit {
   title = 'cineweb';
   cards = new Cards().cards;
   constructor(private apiToolService: APIToolService, private location: Location, private router: Router) {
-
   }
   async ngOnInit() {
     if (await (await this.apiToolService.getUserService()).getConnectedUser() === undefined) {

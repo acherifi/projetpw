@@ -2,9 +2,8 @@ import { User } from './objects/User';
 import { WatchlistService } from './WatchlistService';
 
 export class UserService {
-  private connectedUser: User;
   private url = 'https://localhost:4000/users/';
-
+  private keyLocalStorage = 'connectedUser';
   async getUserByMail(email: string): Promise<User> {
     const resultRequest =  await this.doGetRequest('');
     for (let i = 0; i < resultRequest.length; ++i) {
@@ -14,6 +13,16 @@ export class UserService {
         await user.setWatchlist(await (await new WatchlistService()).getWatchlistById(resultRequest[i].idwatch));
         return user;
       }
+    }
+    return undefined;
+  }
+  async getUserById(id: string): Promise<User> {
+    const resultRequest = await this.doGetRequest(id);
+    if (resultRequest.length > 0) {
+      const user = await new User(resultRequest[0].email, resultRequest[0].password);
+      await user.setId(id);
+      await user.setWatchlist(await (await new WatchlistService()).getWatchlistById(resultRequest[0].idwatch));
+      return user;
     }
     return undefined;
   }
@@ -31,15 +40,27 @@ export class UserService {
     }
     return users;
   }
-  async addUser(user: User): Promise<boolean> {
-    return await this.doPostRequest('add',
+  async addUser(user: User): Promise<User> {
+    const answer: boolean = await this.doPostRequest('add',
     {email: await user.getEmail(), password: await user.getPassword()});
+    if (answer) {
+      const newUser = await this.getUserByMail((await user.getEmail()).toString());
+      return newUser;
+    } else {
+      return undefined;
+    }
   }
   async setConnectedUser(user: User) {
-    this.connectedUser = user;
+    if (user === undefined) {
+      localStorage.setItem(this.keyLocalStorage, undefined);
+    } else {
+      localStorage.setItem(this.keyLocalStorage, (await user.getId()).toString());
+    }
   }
-  async getConnectedUser() {
-    return this.connectedUser;
+  async getConnectedUser(): Promise<User> {
+    const localUserId: string = localStorage.getItem(this.keyLocalStorage);
+    const localUser: User = await this.getUserById(localUserId);
+    return localUser;
   }
   private async doGetRequest(params: string) {
     const result = await fetch(this.url + params, {

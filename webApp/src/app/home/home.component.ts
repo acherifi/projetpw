@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Location} from '@angular/common';
+import { APIToolService } from 'src/services/APIToolService';
 
 @Component({
   selector: 'app-home',
@@ -11,9 +12,12 @@ export class HomeComponent implements OnInit {
 
   nameConnection = 'Connection';
   nameCreateAccount = 'Create Account';
-  constructor(private location: Location, private router: Router) {  }
+  constructor(private apiToolService: APIToolService, private location: Location, private router: Router) {  }
 
-  ngOnInit() {
+  async ngOnInit() {
+    if (await (await this.apiToolService.getUserService()).getConnectedUser() !== undefined) {
+      this.router.navigateByUrl('app', {skipLocationChange: true});
+    }
   }
 
 }

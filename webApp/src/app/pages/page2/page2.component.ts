@@ -42,12 +42,6 @@ export class Page2Component extends AbstractPage implements OnInit {
     super.handleResponsive(window);
     const connectedUser = await (await this.apiToolService.getUserService()).getConnectedUser();
     const watchlist: Watchlist = await connectedUser.getWatchlist();
-
-    /*
-    await (await this.apiToolService.getWatchListService()).addMovieToWatchlist(watchlist, '244560');
-    await (await this.apiToolService.getWatchListService()).addMovieToWatchlist(watchlist, '1');
-    await (await this.apiToolService.getWatchListService()).addMovieToWatchlist(watchlist, '218476');
-    */
     const movies = await(await this.apiToolService.getMovieService()).getMoviesByIds(await watchlist.getMoviesIds(),
     interval);
     await this.sortService.setRawMovies(await this.getId(), movies);
