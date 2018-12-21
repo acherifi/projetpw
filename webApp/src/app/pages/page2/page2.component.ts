@@ -39,11 +39,6 @@ export class Page2Component extends AbstractPage implements OnInit {
     return data;
   }
   async loadRawMovies(interval: ParamInterval) {
-    /*Tempo*/
-    const users = await (await this.apiToolService.getUserService()).getAllUsers();
-    await (await this.apiToolService.getUserService()).setConnectedUser(users[0]);
-    /*fin tempo*/
-
     super.handleResponsive(window);
     const connectedUser = await (await this.apiToolService.getUserService()).getConnectedUser();
     const watchlist: Watchlist = await connectedUser.getWatchlist();

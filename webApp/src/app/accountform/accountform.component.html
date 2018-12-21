@@ -1,0 +1,18 @@
+<div>
+  <mat-form-field>
+      <input matInput  placeholder="{{nameInputMail}}" [formControl]="emailControl" required #email>
+      <mat-error *ngIf="emailControl.invalid">{{getErrorMessageEmail()}}</mat-error>
+    </mat-form-field>
+
+  <mat-form-field>
+    <input matInput placeholder="{{nameInputPwd}}" [formControl]="passwordControl" [type]="hide ? 'password' : 'text'" required #pwd>
+    <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+  </mat-form-field>
+  <div>
+    <button mat-raised-button  type="submit" (click)="handlerClickConnect(email.value, pwd.value)">{{nameConnect}}</button>
+    <button mat-raised-button  type="submit" (click)="handlerClickCreate(email.value, pwd.value)">{{nameCreateAccount}}</button>
+  </div>
+</div>
+
+
+

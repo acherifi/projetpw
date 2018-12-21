@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { Location} from '@angular/common';
 import { APIToolService } from '../services/APIToolService';
 import { SortService} from '../services/SortService';
 import Cards from './data.provider';
@@ -8,7 +10,17 @@ import Cards from './data.provider';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'cineweb';
   cards = new Cards().cards;
+  constructor(private apiToolService: APIToolService, private location: Location, private router: Router) {
+
+  }
+  async ngOnInit() {
+    if (await (await this.apiToolService.getUserService()).getConnectedUser() === undefined) {
+      this.router.navigateByUrl('', {skipLocationChange: true});
+      this.location.replaceState('');
+    }
+  }
+
 }

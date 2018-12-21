@@ -74,11 +74,6 @@ export class Page3Component extends AbstractPage implements OnInit {
     return data;
   }
   async loadRawMovies(interval: ParamInterval) {
-    /*Tempo*/
-    const users = await (await this.apiToolService.getUserService()).getAllUsers();
-    await (await this.apiToolService.getUserService()).setConnectedUser(users[0]);
-    /*fin tempo*/
-    const convertInterval = await interval.getArrayValue();
     const loadRawMoviesPrivate = (async (latitude, longitude) => {
       const moviesIds = await (await (await (await this.apiToolService.getUserService()).getConnectedUser())
       .getWatchlist()).getMoviesIds();

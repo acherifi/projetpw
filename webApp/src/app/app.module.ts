@@ -1,10 +1,11 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
+import { RouterModule, Routes } from '@angular/router';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 // tslint:disable-next-line:max-line-length
-import { MatToolbarModule, MatButtonModule, MatIconModule, MatTabsModule, MatPaginatorModule, MatProgressBarModule, MatDialogModule, MatGridListModule } from '@angular/material/';
+import { MatToolbarModule, MatButtonModule, MatIconModule, MatTabsModule, MatPaginatorModule, MatProgressBarModule, MatDialogModule, MatGridListModule, MatFormFieldModule, MatOptionModule, MatSelectModule, MatInputModule } from '@angular/material/';
 import {HttpClientModule} from '@angular/common/http';
 import { NavbarComponent } from './navbar/navbar.component';
 import { Page1Component } from './pages/page1/page1.component';
@@ -18,6 +19,16 @@ import { SelectNumbersComponent } from './sortbar/sorttools/select-numbers/selec
 import { MovieDialogComponent } from './movie-dialog/movie-dialog.component';
 import { SortService} from '../services/SortService';
 import {APIToolService} from '../services/APIToolService';
+import { HomeComponent } from './home/home.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { AccountformComponent } from './accountform/accountform.component';
+
+const appRoutes: Routes = [
+  {path: '', component: HomeComponent},
+  {path: 'account', component: AccountformComponent},
+  {path: 'app', component: NavbarComponent},
+  { path: '**', component: PageNotFoundComponent }
+];
 
 @NgModule({
   declarations: [
@@ -32,6 +43,9 @@ import {APIToolService} from '../services/APIToolService';
     SelectNamesComponent,
     SelectNumbersComponent,
     MovieDialogComponent,
+    HomeComponent,
+    PageNotFoundComponent,
+    AccountformComponent,
   ],
   imports: [
     BrowserModule,
@@ -44,7 +58,14 @@ import {APIToolService} from '../services/APIToolService';
     MatDialogModule,
     MatTabsModule,
     MatPaginatorModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    MatFormFieldModule,
+    MatOptionModule,
+    MatSelectModule,
+    MatInputModule,
+    FormsModule,
+    ReactiveFormsModule,
+    RouterModule.forRoot(appRoutes),
   ],
   entryComponents: [
     MovieDialogComponent
