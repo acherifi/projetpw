@@ -8,7 +8,7 @@ module.exports = class MongoUsersManager {
   async addUser(mail, pwd) {
     if (!await this.userExists(mail)) {
       const newIdWathlist = await this.watchlistManager.createWatchlist();
-      await (await this.getCollection()).insertOne({id: uniqueID(), email: mail, password: pwd, 
+      await (await this.getCollection()).insertOne({id: uniqueID(), email: mail, password: pwd,
         idwatch: newIdWathlist});
       return true;
     } else {
