@@ -19,7 +19,7 @@ module.exports = class MongoUsersManager {
   async getUserById(userId) {
     const data = await (await (await this.getCollection()).find({id: userId})).toArray();
     await this.clearJSONFromMongo(data[0]);
-    return data;
+    return data[0];
   }
   async getAllUser() {
     const data = await (await (await this.getCollection()).find({})).toArray();

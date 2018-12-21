@@ -18,10 +18,10 @@ export class UserService {
   }
   async getUserById(id: string): Promise<User> {
     const resultRequest = await this.doGetRequest(id);
-    if (resultRequest.length > 0) {
-      const user = await new User(resultRequest[0].email, resultRequest[0].password);
+    if (resultRequest !== {}) {
+      const user = await new User(resultRequest.email, resultRequest.password);
       await user.setId(id);
-      await user.setWatchlist(await (await new WatchlistService()).getWatchlistById(resultRequest[0].idwatch));
+      await user.setWatchlist(await (await new WatchlistService()).getWatchlistById(resultRequest.idwatch));
       return user;
     }
     return undefined;
