@@ -50,15 +50,18 @@ export class Page3Component extends AbstractPage implements OnInit {
     await this.sortService.setTrueToRawDataMovies(await this.getId());
     await this.sortService.setTrueToSortedParametersChanged(await this.getId());
   }
-
+  /**
+   * In the design pattern Observer, this is notify(), called by SortService.
+   * So check if movies from SortService has changed, and if they changed, we set movies from the page.
+   */
   async update(sortService: SortService) {
     super.updateAbstract(sortService, Page3Component.this);
   }
   getId(): number {
     return 3;
   }
-  async getDataToPrint(movie: Movie) {
-    const data = await super.getDataToPrint(movie);
+  async getDataToPrintOnMovieDialog(movie: Movie) {
+    const data = await super.getDataToPrintOnMovieDialog(movie);
     let showTimes = 'Show times:' ;
     const theaters: Theater[] = await movie.getTheaters();
     for (let i = 0; i < theaters.length; ++i) {
@@ -73,6 +76,10 @@ export class Page3Component extends AbstractPage implements OnInit {
     data.data['showtime'] = showTimes;
     return data;
   }
+  /**
+   * Raw movies is unsorted movies (movies print on screen without sorting).
+   * @param interval because we can't load an infinity of movies, we need a interval
+   */
   async loadRawMovies(interval: ParamInterval) {
     const loadRawMoviesPrivate = (async (latitude, longitude) => {
       const moviesIds = await (await (await (await this.apiToolService.getUserService()).getConnectedUser())
@@ -80,11 +87,10 @@ export class Page3Component extends AbstractPage implements OnInit {
       const params = [await new ParamLatitude(latitude + ''), await new ParamLongitude(longitude + '')];
       const tempoMovies =  await (await this.apiToolService.getMovieService()).getMoviesByIdsWithShowTimes(moviesIds,
         interval, params);
-      // because filter isn't synchronous
       const movies = [];
-      await tempoMovies.forEach(async x => {
-        if (await x.getTheaters().length > 0) {
-          await movies.push(x);
+      await tempoMovies.forEach(async movie => {
+        if (await movie.getTheaters().length > 0) {
+          await movies.push(movie);
         }
       });
       await this.sortService.setRawMovies(await this.getId(), movies);

@@ -15,6 +15,9 @@ enum Error {
   templateUrl: './accountform.component.html',
   styleUrls: ['./accountform.component.css']
 })
+/**
+ * The component to create an account or to log in
+ */
 export class AccountformComponent implements OnInit {
 
   nameInputMail = 'email';

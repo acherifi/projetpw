@@ -10,16 +10,6 @@
     <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
   </mat-form-field>
   <div>
-    <!--
-      <span [ngSwitch]='errorMessage'>
-      <span *ngSwitchCase='1'>
-        <p #alreadyExists >{{messageAlreadyExists}}</p>
-      </span>
-      <span *ngSwitchCase='2'>
-          <p #alreadyExists >{{messageBadEntry}}</p>
-        </span>
-    </span>
-    -->
     <span *ngIf='errorMessage !== 0'>
       <p>{{getErrorMessageInvalid()}}</p>
     </span>

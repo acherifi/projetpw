@@ -19,9 +19,6 @@ export class ButtonMovieDialog implements IButton {
       this.nameToPrint = this.name;
     }
   }
-  getSecondeName(): string {
-    return this.secondName;
-  }
   getMovieId(): Number {
     return this.movieId;
   }

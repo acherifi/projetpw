@@ -44,15 +44,15 @@ export abstract class AbstractPage {
     await this.sortService.setTrueToSortedParametersChanged(await this.getId());
     await this.sortService.setTrueToRawDataMovies(await this.getId());
   }
-  async onClickMe(index: number) {
+  async onClickMovie(index: number) {
     const dialogRef = this.dialog.open(MovieDialogComponent,
-       await this.getDataToPrint(this.movies[index]));
+       await this.getDataToPrintOnMovieDialog(this.movies[index]));
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
     });
   }
   abstract getId(): number;
-  async getDataToPrint(movie: Movie) {
+  async getDataToPrintOnMovieDialog(movie: Movie) {
     const data = { data: {
       name: movie.getTitle(),
       synopsis: movie.getSynopsis(),
@@ -72,6 +72,11 @@ export abstract class AbstractPage {
     data.data['buttons'] = await [button];
     return data;
   }
+  /**
+   * In the design pattern Observer, this is notify(), called by SortService.
+   * So check if movies from SortService has changed, and if they changed, we set movies from the page.
+   * @param page to know what page we need to update
+   */
   async updateAbstract(sortService: SortService, page: AbstractPage) {
     if (await sortService.sortedMoviesHasChanged(await page.getId())) {
       page.movies = await sortService.getSortedMovies(await page.getId());

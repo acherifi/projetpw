@@ -26,18 +26,26 @@ export class Page2Component extends AbstractPage implements OnInit {
     await this.sortService.setTrueToSortedParametersChanged(await this.getId());
     await this.sortService.setTrueToRawDataMovies(await this.getId());
   }
+  /**
+   * In the design pattern Observer, this is notify(), called by SortService.
+   * So check if movies from SortService has changed, and if they changed, we set movies from the page.
+   */
   async update(sortService: SortService) {
     super.updateAbstract(sortService, Page2Component.this);
   }
   getId(): number {
     return 2;
   }
-  async getDataToPrint(movie: Movie) {
-    const data = await super.getDataToPrint(movie);
+  async getDataToPrintOnMovieDialog(movie: Movie) {
+    const data = await super.getDataToPrintOnMovieDialog(movie);
     const rate = 'Rate:' + await movie.getRate();
     data.data['rate'] = rate;
     return data;
   }
+  /**
+   * Raw movies is unsorted movies (movies print on screen without sorting).
+   * @param interval because we can't load an infinity of movies, we need a interval
+   */
   async loadRawMovies(interval: ParamInterval) {
     super.handleResponsive(window);
     const connectedUser = await (await this.apiToolService.getUserService()).getConnectedUser();

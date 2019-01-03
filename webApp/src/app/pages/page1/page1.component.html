@@ -7,7 +7,7 @@
   <mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
   <div *ngIf="movies">
     <div *ngFor="let movie of movies; let i=index">
-        <mat-grid-tile (click)="onClickMe(i)">
+        <mat-grid-tile (click)="onClickMovie(i)">
             <img src={{movie.posterLink}} alt="">
             <mat-grid-tile-footer>{{movie.title}}</mat-grid-tile-footer>
         </mat-grid-tile>

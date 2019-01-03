@@ -25,6 +25,9 @@ export class NavbarComponent implements OnInit {
 
   async ngOnInit() {
   }
+  /**
+   * Handler called when user click on "log out" button
+   */
   async disconnectHandler() {
     await (await this.apiToolService.getUserService()).setConnectedUser(undefined);
     this.router.navigateByUrl('', {skipLocationChange: true});
