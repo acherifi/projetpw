@@ -37,6 +37,10 @@ module.exports = class MongoUsersManager {
   async getCollection() {
     return await this.database.collection('users');
   }
+  /**
+   * We don't want to use the id from mongo, so we delete mongo's id from data
+   * @param {JSON} data
+   */
   async clearJSONFromMongo(data) {
     if (data !== null && data !== undefined) {
       await delete data._id;

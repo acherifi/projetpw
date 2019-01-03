@@ -3,6 +3,9 @@ module.exports = class AllocineMoviesManager {
   constructor() {
     this.urlAllocine = 'http://api.allocine.fr/rest/v3/';
     this.partnerKey = 'YW5kcm9pZC12Mg';
+    /**
+     * code from allocine to find actor, directors ...
+     */
     this.codeRoleDirector = 8002;
     this.codeRoleActor = 8001;
   }
@@ -19,6 +22,10 @@ module.exports = class AllocineMoviesManager {
     const showTime = await this.formatShowTime(resultShowTimeFromAllocine);
     return {infomovie: movie, infoshowtime: showTime};
   }
+  /**
+   * Get movies juste released in theaters sorted by number of theaters.
+   * @param {string} interval to specify how many movies do you want to get
+   */
   async getRecentMoviesInTheaters(interval) {
     const allMovies = [];
     if (interval === undefined) {
@@ -43,6 +50,10 @@ module.exports = class AllocineMoviesManager {
   async getPartnerParameter() {
     return await 'partner='+this.partnerKey;
   }
+  /**
+   * Take json from allocine to build a json for us
+   * @param {JSON} movieAllocine Json from allocine
+   */
   async formatOneMovie(movieAllocine) {
     if (movieAllocine === undefined) {
       return {};
