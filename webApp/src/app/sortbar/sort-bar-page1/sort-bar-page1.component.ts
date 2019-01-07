@@ -1,8 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import {SortService} from '../../../services/SortService';
 import {AbstractSortBar} from '../AbstractSortBar';
-import { Movie } from '../../../services/objects/Movie';
-import { IParam } from '../../../services/objects/sortParameters/IParam';
 import { ParamReleaseDate } from '../../../services/objects/sortParameters/ParamReleaseDate';
 import { ParamGenre} from '../../../services/objects/sortParameters/ParamGenre';
 
@@ -28,10 +26,10 @@ export class SortBarPage1Component extends AbstractSortBar implements OnInit {
 
   ngOnInit() {
   }
-  async update(id: number, sortService: SortService) {
-    await super.update(id, sortService);
-    if (await sortService.rawMoviesHasChanged(id)) {
-      const movies = (await sortService.getRawMovies(id));
+  async update(idPage: number, sortService: SortService) {
+    await super.update(idPage, sortService);
+    if (await sortService.rawMoviesHasChanged(idPage)) {
+      const movies = (await sortService.getRawMovies(idPage));
       const dataReleaseDates = [];
       for (let i = 0; i < movies.length; ++i) {
         const movieRelease = await movies[i].getReleaseDate().toDateString();

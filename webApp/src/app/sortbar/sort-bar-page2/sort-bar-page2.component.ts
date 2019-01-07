@@ -1,8 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import {SortService} from '../../../services/SortService';
 import {AbstractSortBar} from '../AbstractSortBar';
-import { Movie } from '../../../services/objects/Movie';
-import { IParam } from '../../../services/objects/sortParameters/IParam';
 import { ParamGenre} from '../../../services/objects/sortParameters/ParamGenre';
 import { ParamRate} from '../../../services/objects/sortParameters/ParamRate';
 
@@ -25,10 +23,10 @@ export class SortBarPage2Component extends AbstractSortBar implements OnInit {
   async onChangeRates(objectsFromSelect) {
     await SortBarPage2Component.this.onChangeGeneral(objectsFromSelect, async (value) => await new ParamRate(value));
   }
-  async update(id: number, sortService: SortService) {
-    await super.update(id, sortService);
-    if (await sortService.rawMoviesHasChanged(id)) {
-      const movies = await sortService.getRawMovies(id);
+  async update(idPage: number, sortService: SortService) {
+    await super.update(idPage, sortService);
+    if (await sortService.rawMoviesHasChanged(idPage)) {
+      const movies = await sortService.getRawMovies(idPage);
       const tempoRates: number[] = [];
       for (let i = 0; i < movies.length; ++i) {
         const movieRate = +(await movies[i].getRate());
