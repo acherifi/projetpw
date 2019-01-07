@@ -33,6 +33,7 @@ module.exports = class AllocineMoviesManager {
     }
     const resultFromAllocine = await this.doRequest('movielist?'+await this.getPartnerParameter()+
   '&count='+ interval[1] +'&format=json&filter=nowshowing&order=theatercount');
+
     for (let i = interval[0]; i < resultFromAllocine.feed.movie.length && i < interval[1]; ++i) {
       await allMovies.push(await this.getMovieById(resultFromAllocine.feed.movie[i].code, undefined));
     }

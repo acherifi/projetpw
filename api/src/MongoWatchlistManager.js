@@ -19,7 +19,7 @@ module.exports = class MongoWatchlistManager {
   }
   async addMovieToWatchlistById(watchlistId, movieId) {
     const watchlist = await this.getWatchlistById(watchlistId);
-    if (watchlist !== undefined) {
+    if (watchlist !== undefined && movieId !== null && movieId !== undefined) {
       await (await this.getCollection()).updateOne({id: watchlistId}, {$addToSet: {movies: movieId}});
       return true;
     } else {
