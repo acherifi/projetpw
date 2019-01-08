@@ -2,7 +2,6 @@ import { Component, OnInit, OnChanges } from '@angular/core';
 import { Router } from '@angular/router';
 import { Location} from '@angular/common';
 import { APIToolService } from '../services/APIToolService';
-import Cards from './data.provider';
 
 @Component({
   selector: 'app-root',
@@ -11,7 +10,6 @@ import Cards from './data.provider';
 })
 export class AppComponent implements OnInit {
   title = 'cineweb';
-  cards = new Cards().cards;
   constructor(private apiToolService: APIToolService, private location: Location, private router: Router) {
   }
   async ngOnInit() {
