@@ -4,7 +4,6 @@ import {ParamDirector} from './sortParameters/ParamDirector';
 import { ParamGenre} from './sortParameters/ParamGenre';
 import { ParamReleaseDate } from './sortParameters/ParamReleaseDate';
 import { ParamRate} from './sortParameters/ParamRate';
-import { ParamCity} from './sortParameters/ParamCity';
 export class Movie {
 
   private theaters: Theater[];

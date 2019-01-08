@@ -47,9 +47,6 @@ export abstract class AbstractPage {
   async onClickMovie(index: number) {
     const dialogRef = this.dialog.open(MovieDialogComponent,
        await this.getDataToPrintOnMovieDialog(this.movies[index]));
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-    });
   }
   abstract getId(): number;
   async getDataToPrintOnMovieDialog(movie: Movie) {

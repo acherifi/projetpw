@@ -42,8 +42,8 @@ export class SortBarPage3Component extends AbstractSortBar implements OnInit {
   async onChangeCinemaNames(objectsFromSelect) {
     await SortBarPage3Component.this.onChangeGeneral(objectsFromSelect, async (value) => await new ParamCinemaName(value));
   }
-  async update(id: number, sortService: SortService) {
-    await super.update(id, sortService);
+  async update(idPage: number, sortService: SortService) {
+    await super.update(idPage, sortService);
     const functionRangeTheaters = async(films: Movie[], f) => {
       if (films !== undefined) {
         for (let i = 0; i < films.length; ++i) {
@@ -55,8 +55,8 @@ export class SortBarPage3Component extends AbstractSortBar implements OnInit {
       }
     };
     let movies = [];
-    if (await sortService.rawMoviesHasChanged(id)) {
-      movies = await sortService.getRawMovies(id);
+    if (await sortService.rawMoviesHasChanged(idPage)) {
+      movies = await sortService.getRawMovies(idPage);
       const tempoCities: String[] = [];
       await functionRangeTheaters(movies, async (theater) => {
         const city = await theater.getCity();
@@ -67,11 +67,10 @@ export class SortBarPage3Component extends AbstractSortBar implements OnInit {
       this.dataCities = tempoCities;
 
     }
-    if (await sortService.sortedMoviesHasChanged(id)) {
-      movies = await sortService.getSortedMovies(id);
+    if (await sortService.sortedMoviesHasChanged(idPage)) {
+      movies = await sortService.getSortedMovies(idPage);
       const tempoCinemaNames: String[] = [];
-      const paramsSort: IParam[] = await sortService.getParams(id);
-      const allCitiesParams = await this.sortService.getParamsByKey(id, await (await new ParamCity('')).getKey());
+      const allCitiesParams = await this.sortService.getParamsByKey(idPage, await (await new ParamCity('')).getKey());
       const allCitiesParamsNames = [];
       for (let i = 0; i < allCitiesParams.length; ++i) {
         await allCitiesParamsNames.push(await allCitiesParams[i].getValue());

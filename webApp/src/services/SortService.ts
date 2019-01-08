@@ -63,7 +63,7 @@ export class SortService {
     return [];
   }
   /**
-   * Pour la même clé de paramètres c'est un "ou" pour les films et quand c'est une autre clé c'est un "et"
+   * For the same parameters key we apply "or" sort and between different keys we apply "and"
    */
   async getSortedMovies(idPage: number): Promise<Movie[]> {
     const functionRespectParams = async (movie: Movie, params: IParam[]): Promise<boolean> => {
@@ -121,15 +121,25 @@ export class SortService {
       await this.handlersObservers[i](this);
     }
   }
+  /**
+   * Use to notify all observers that all raw movies in all pages has been changed.
+   * It is used when the user add a movie in his watchlist.
+   */
   async setTrueToAllRawDataMovies() {
     const keys = await Array.from(await this.rawMovies.keys());
     await keys.forEach(async x => await this.setTrueToRawDataMovies(x));
   }
+  /**
+   * Will notify observers (pages) that raw movies on page idPage has been changed
+   */
   async setTrueToRawDataMovies(idPage: number) {
     await this.rawDataHasChanged.set(idPage, true);
     await this.callHandlersObservers();
     await this.rawDataHasChanged.set(idPage, false);
   }
+  /**
+   * Will notify observers (pages) that sorted movies on page idPage has been changed
+   */
   async setTrueToSortedParametersChanged(idPage: number) {
     await this.sortedParametersHasChanged.set(idPage, true);
     await this.callHandlersObservers();
