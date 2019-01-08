@@ -5,7 +5,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 // tslint:disable-next-line:max-line-length
-import { MatToolbarModule, MatButtonModule, MatIconModule, MatTabsModule, MatPaginatorModule, MatProgressBarModule, MatDialogModule, MatGridListModule, MatFormFieldModule, MatOptionModule, MatSelectModule, MatInputModule } from '@angular/material/';
+import { MatToolbarModule, MatButtonModule, MatIconModule, MatTabsModule, MatPaginatorModule, MatProgressBarModule, MatDialogModule, MatGridListModule, MatFormFieldModule, MatOptionModule, MatSelectModule, MatInputModule} from '@angular/material/';
 import {HttpClientModule} from '@angular/common/http';
 import { NavbarComponent } from './navbar/navbar.component';
 import { Page1Component } from './pages/page1/page1.component';
@@ -65,6 +65,7 @@ const appRoutes: Routes = [
     MatInputModule,
     FormsModule,
     ReactiveFormsModule,
+    MatToolbarModule,
     RouterModule.forRoot(appRoutes),
   ],
   entryComponents: [

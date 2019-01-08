@@ -1,5 +1,17 @@
-<h1>
-  CineWeb
-</h1>
-<button mat-raised-button routerLink='/account' routerLinkActive="active" skipLocationChange='true'>{{nameConnection}}</button>
-<button mat-raised-button routerLink='/account' routerLinkActive="active" skipLocationChange='true'>{{nameCreateAccount}}</button>
+<mat-toolbar class="mat-elevation-z2">
+    <span>
+        <mat-icon svgIcon="clap"></mat-icon>
+    </span>
+    <span class="example-fill-remaining-space"></span>
+    <button mat-raised-button routerLink='/account' routerLinkActive="active" skipLocationChange='true'>{{nameConnection}}</button>
+    <button mat-raised-button routerLink='/account' routerLinkActive="active" skipLocationChange='true'>{{nameCreateAccount}}</button>
+</mat-toolbar>
+
+<div>
+  <div class="overlay">
+      <p class="intro">
+          Bienvenue sur Cineweb
+      </p>
+  </div>
+    <img class="mainImg" src="assets/cinema.jpg" alt="">
+</div>
