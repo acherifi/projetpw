@@ -12,7 +12,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 })
 export class HomeComponent implements OnInit {
 
-  nameConnection = 'Connection';
+  nameConnection = 'Log in';
   nameCreateAccount = 'Create Account';
   iconPath = 'assets/clap.svg';
 
