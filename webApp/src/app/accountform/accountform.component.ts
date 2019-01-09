@@ -5,8 +5,7 @@ import { APIToolService } from 'src/services/APIToolService';
 import { UserService } from 'src/services/UserService';
 import { User } from 'src/services/objects/User';
 import {FormControl, Validators} from '@angular/forms';
-import { MatIconRegistry } from '@angular/material';
-import { DomSanitizer } from '@angular/platform-browser';
+import {CryptClass} from '../../services/CryptClass';
 
 enum Error {
   AccountAlreadyExists = 1,
@@ -42,7 +41,8 @@ export class AccountformComponent implements OnInit {
   }
   async handlerClickCreate(answerMail, answerPwd) {
     if (await this.checkValidityEmailAndPassword()) {
-      const newUser: User = await this.userService.addUser(await new User(answerMail, answerPwd));
+      const newUser: User = await this.userService.addUser(await new User(CryptClass.crypt(answerMail),
+      CryptClass.crypt(answerPwd)));
       if (newUser !== undefined ) {
         await this.doRedirection(newUser);
       } else {
@@ -51,10 +51,9 @@ export class AccountformComponent implements OnInit {
     }
   }
   async handlerClickConnect(answerMail, answerPwd) {
-    console.log(answerMail, ' : ', answerPwd);
     if (await this.checkValidityEmailAndPassword()) {
       const userExist: User = await this.userService.getUserByMail(answerMail);
-      if (userExist !== undefined && await userExist.getPassword() === answerPwd) {
+      if (userExist !== undefined && CryptClass.compare(answerPwd, await (await userExist.getPassword()).toString() )) {
         await this.doRedirection(userExist);
       } else {
         this.errorMessage = Error.BadAuthentification;

@@ -1,5 +1,6 @@
 import { User } from './objects/User';
 import { WatchlistService } from './WatchlistService';
+import { CryptClass} from './CryptClass';
 
 export class UserService {
   private url = 'https://localhost:4000/users/';
@@ -7,7 +8,7 @@ export class UserService {
   async getUserByMail(email: string): Promise<User> {
     const resultRequest =  await this.doGetRequest('');
     for (let i = 0; i < resultRequest.length; ++i) {
-      if (resultRequest[i].email === email) {
+      if (await CryptClass.compare(email, resultRequest[i].email)) {
         const user = await new User(email, resultRequest[i].password);
         await user.setId(resultRequest[i].id);
         await user.setWatchlist(await (await new WatchlistService()).getWatchlistById(resultRequest[i].idwatch));

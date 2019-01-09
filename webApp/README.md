@@ -1,10 +1,14 @@
+pour la compilation:
+node_modules/@angular-devkit/build-angular/src/angular-cli-files/models/webpack-configs/browser.js 
+il faut remplacer node: false par node: { crypto: true, stream: true, fs: 'empty', net: 'empty' },
+
 # Cineweb
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.0.6.
 
 ## Development server
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+Run `npm start` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
 ## Code scaffolding
 
