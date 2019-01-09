@@ -5,6 +5,8 @@ import { APIToolService } from 'src/services/APIToolService';
 import { UserService } from 'src/services/UserService';
 import { User } from 'src/services/objects/User';
 import {FormControl, Validators} from '@angular/forms';
+import { MatIconRegistry } from '@angular/material';
+import { DomSanitizer } from '@angular/platform-browser';
 
 enum Error {
   AccountAlreadyExists = 1,
@@ -20,10 +22,12 @@ enum Error {
  */
 export class AccountformComponent implements OnInit {
 
-  nameInputMail = 'email';
-  nameInputPwd = 'password';
-  nameCreateAccount = 'create account';
-  nameConnect = 'connect';
+  placeholderInputMail = 'mail@example.com';
+  placeholderInputPwd = 's3cr3tp4ss!';
+  labelMail = 'Email';
+  labelPassword = 'Password';
+  nameCreateAccount = 'Sign up';
+  nameConnect = 'Log in';
   errorMessage: Error = 0;
 
   emailControl = new FormControl('', [Validators.required, Validators.email]);
