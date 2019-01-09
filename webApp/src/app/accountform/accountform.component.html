@@ -1,22 +1,32 @@
-<div>
-  <mat-form-field>
-      <input matInput  placeholder="{{nameInputMail}}" [formControl]="emailControl" required #email>
-      <mat-error *ngIf="emailControl.invalid">{{getErrorMessageEmail()}}</mat-error>
+<div class="main center">
+  <div class="center">
+    <mat-icon svgIcon="clap"></mat-icon>
+    <mat-form-field appearance="outline">
+      <mat-label>{{labelMail}}</mat-label>
+        <input matInput  placeholder="{{placeholderInputMail}}" [formControl]="emailControl" required #email>
+        <mat-error *ngIf="emailControl.invalid">{{getErrorMessageEmail()}}</mat-error>
     </mat-form-field>
 
-  <mat-form-field>
-    <input matInput placeholder="{{nameInputPwd}}" [formControl]="passwordControl" [type]="hide ? 'password' : 'text'" required #pwd>
-    <mat-error *ngIf="passwordControl.invalid">{{getErrorMessagePassword()}}</mat-error>
-    <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-  </mat-form-field>
-  <div>
-    <span *ngIf='errorMessage !== 0'>
-      <p>{{getErrorMessageInvalid()}}</p>
-    </span>
+    <mat-form-field appearance="outline">
+      <mat-label>{{labelPassword}}</mat-label>
+      <input matInput placeholder="{{placeholderInputPwd}}" [formControl]="passwordControl" [type]="hide ? 'password' : 'text'" required #pwd>
+      <mat-error *ngIf="passwordControl.invalid">{{getErrorMessagePassword()}}</mat-error>
+      <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+    </mat-form-field>
+  <span *ngIf='errorMessage !== 0'>
+    <p>{{getErrorMessageInvalid()}}</p>
+  </span>
+
+  <div class="center buttons">
     <button mat-raised-button  type="submit" (click)="handlerClickConnect(email.value, pwd.value)">{{nameConnect}}</button>
-    <button mat-raised-button  type="submit" (click)="handlerClickCreate(email.value, pwd.value)">{{nameCreateAccount}}</button>
+    <button mat-raised-button class="signup"  type="submit" (click)="handlerClickCreate(email.value, pwd.value)">{{nameCreateAccount}}</button>
   </div>
+  </div>
+
 </div>
+
+
+
 
 
 
