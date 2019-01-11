@@ -3,7 +3,8 @@ import { WatchlistService } from './WatchlistService';
 import { CryptClass} from './CryptClass';
 
 export class UserService {
-  private url = 'https://localhost:4000/users/';
+  public api_url: string;
+  private url = this.api_url + '/users/';
   private keyLocalStorage = 'connectedUser';
   async getUserByMail(email: string): Promise<User> {
     const resultRequest =  await this.doGetRequest('');

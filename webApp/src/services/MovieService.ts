@@ -3,6 +3,7 @@ import { IParam } from './objects/sortParameters/IParam';
 import { ParamInterval } from './objects/sortParameters/ParamInterval';
 
 export class MovieService {
+  public api_url: string;
   constructor() {
 
   }
@@ -50,7 +51,7 @@ export class MovieService {
     return res;
   }
   private async doRequest(params: String) {
-      const result = await fetch('https://localhost:4000/movies/' + params, {
+      const result = await fetch(this.api_url + '/movies/' + params, {
         method: 'GET',
         headers: {
           Accept: 'application/json',
