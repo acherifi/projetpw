@@ -1,3 +1,3 @@
 run api server:
-  - node src/index.js
+  - npm start optionnal:< mongo db adress >
 server address: localhost:4000

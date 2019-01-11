@@ -6,7 +6,7 @@
   "author": "Cherifi-Fontenay",
   "license": "ISC",
   "scripts": {
-    "start": "node src/index.js",
+    "start": "node src/index.js $1",
     "test": "NODE_TLS_REJECT_UNAUTHORIZED=\"0\" jest --detectOpenHandles --forceExit"
   },
   "dependencies": {

@@ -4,7 +4,7 @@ const MongoClient=require('mongodb').MongoClient;
 const cors = require('cors');
 const https = require('https');
 const fs = require('fs');
-const MONGO_URL = 'mongodb://root:cinewebpw1@ds061839.mlab.com:61839/cineweb';
+const MONGO_URL = process.argv[2] === undefined ? 'mongodb://root:cinewebpw1@ds061839.mlab.com:61839/cineweb': process.argv[2];
 const DATA_BASE = 'cineweb';
 
 (async () => {
