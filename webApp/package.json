@@ -7,7 +7,6 @@
     "build": "ng build",
     "test": "NODE_TLS_REJECT_UNAUTHORIZED=\"0\" jest",
     "lint": "ng lint",
-    "e2e": "ng e2e",
     "postinstall": "node patch-webpack.js ; npm i -D typescript npm i @types/jest"
   },
   "private": true,
