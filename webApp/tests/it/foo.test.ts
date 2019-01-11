@@ -1,9 +1,10 @@
-import {WatchlistService} from '../../src/services/WatchlistService';
+import {UserService} from '../../src/services/UserService';
+import {User} from '../../src/services/objects/User';
 
 
-test('basic', async () => {
-  const u = new WatchlistService();
-  const a = await (await u.getWatchlistById('cw-fvm9y08lkjqo4x6x0')).toString();
-  expect(a).not.toBe('');
-  console.log(a);
+test('add user', async () => {
+  const u = await new UserService();
+  await u.addUser(await new User('test@test.com', 'test'));
+  const toTest = await u.getUserByMail('test@test.com');
+  expect(await toTest.getId()).not.toBe('undefined');
 });
