@@ -1,7 +1,7 @@
 import { Watchlist} from './objects/Watchlist';
 
 export class WatchlistService {
-  public api_url: string;
+  public api_url = 'https://localhost:4000'; // default value;
   private url = this.api_url + '/watchlist/';
 
   async getWatchlistById(id: string): Promise<Watchlist> {

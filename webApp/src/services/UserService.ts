@@ -3,7 +3,7 @@ import { WatchlistService } from './WatchlistService';
 import { CryptClass} from './CryptClass';
 
 export class UserService {
-  public api_url: string;
+  public api_url = 'https://localhost:4000'; // default value;
   private url = this.api_url + '/users/';
   private keyLocalStorage = 'connectedUser';
   async getUserByMail(email: string): Promise<User> {
@@ -46,7 +46,7 @@ export class UserService {
     const answer: boolean = await this.doPostRequest('add',
     {email: await user.getEmail(), password: await user.getPassword()});
     if (answer) {
-      const newUser = await this.getUserByMail((await user.getEmail()).toString());
+      const newUser = await this.getUserByMail(await (await user.getEmail()).toString());
       return newUser;
     } else {
       return undefined;
@@ -60,9 +60,12 @@ export class UserService {
     }
   }
   async getConnectedUser(): Promise<User> {
-    const localUserId: string = localStorage.getItem(this.keyLocalStorage);
-    const localUser: User = await this.getUserById(localUserId);
-    return localUser;
+    const localUserId: string = await localStorage.getItem(this.keyLocalStorage);
+    if (localUserId !== 'undefined') {
+      const localUser: User = await this.getUserById(localUserId);
+      return localUser;
+    }
+    return undefined;
   }
   private async doGetRequest(params: string) {
     const result = await fetch(this.url + params, {

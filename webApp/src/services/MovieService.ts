@@ -3,7 +3,7 @@ import { IParam } from './objects/sortParameters/IParam';
 import { ParamInterval } from './objects/sortParameters/ParamInterval';
 
 export class MovieService {
-  public api_url: string;
+  public api_url = 'https://localhost:4000'; // default value
   constructor() {
 
   }

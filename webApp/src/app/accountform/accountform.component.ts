@@ -41,8 +41,8 @@ export class AccountformComponent implements OnInit {
   }
   async handlerClickCreate(answerMail, answerPwd) {
     if (await this.checkValidityEmailAndPassword()) {
-      const newUser: User = await this.userService.addUser(await new User(CryptClass.crypt(answerMail),
-      CryptClass.crypt(answerPwd)));
+      const newUser: User = await this.userService.addUser(await new User((answerMail),
+      (answerPwd)));
       if (newUser !== undefined ) {
         await this.doRedirection(newUser);
       } else {
