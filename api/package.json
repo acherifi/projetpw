@@ -10,6 +10,7 @@
     "test": "NODE_TLS_REJECT_UNAUTHORIZED=\"0\" jest --detectOpenHandles --forceExit"
   },
   "dependencies": {
+    "@types/jest": "^23.3.12",
     "body-parser": "1.18.3",
     "cors": "2.8.5",
     "es6-promise": "^4.2.5",
