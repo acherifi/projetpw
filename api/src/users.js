@@ -11,9 +11,14 @@ router.get('/', async function(req, res) {
 });
 router.get('/:id', async function(req, res) {
   await res.header('Content-Type', 'application/json');
-  await res.write(await JSON.stringify(await (await new MongoUsersManager(Index.database))
-      .getUserById(req.params.id)));
-
+  const manager = await new MongoUsersManager(Index.database);
+  let which;
+  if (req.params.id.includes('@')){
+    which = await manager.getUserByEmail(req.params.id);
+  } else {
+    which = await manager.getUserById(req.params.id);
+  }
+  await res.write(await JSON.stringify(which));
   await res.end();
 });
 router.post('/add', async function(req, res) {

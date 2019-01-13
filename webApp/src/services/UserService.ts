@@ -7,16 +7,7 @@ export class UserService {
   private url = this.api_url + '/users/';
   private keyLocalStorage = 'connectedUser';
   async getUserByMail(email: string): Promise<User> {
-    const resultRequest =  await this.doGetRequest('');
-    for (let i = 0; i < resultRequest.length; ++i) {
-      if (await CryptClass.compare(email, resultRequest[i].email)) {
-        const user = await new User(email, resultRequest[i].password);
-        await user.setId(resultRequest[i].id);
-        await user.setWatchlist(await (await new WatchlistService()).getWatchlistById(resultRequest[i].idwatch));
-        return user;
-      }
-    }
-    return undefined;
+    return await this.getUserById(email);
   }
   async getUserById(id: string): Promise<User> {
     const resultRequest = await this.doGetRequest(id);
@@ -43,14 +34,17 @@ export class UserService {
     return users;
   }
   async addUser(user: User): Promise<User> {
-    const answer: boolean = await this.doPostRequest('add',
-    {email: await user.getEmail(), password: await user.getPassword()});
+     const answer: boolean = await this.doPostRequest('add',
+        {email:  await (await user.getEmail()).toString(), password: CryptClass.crypt(await
+          (await user.getPassword()).toString())});
     if (answer) {
       const newUser = await this.getUserByMail(await (await user.getEmail()).toString());
       return newUser;
     } else {
       return undefined;
     }
+
+
   }
   async setConnectedUser(user: User) {
     if (user === undefined) {
