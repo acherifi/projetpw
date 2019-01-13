@@ -18,7 +18,7 @@ beforeAll(async () => {
 beforeEach(async () => {
   //remove all users
   const manager = await new MongoUsersManager(database);
-  await (await manager.getCollection()).remove({});
+  await (await manager.getCollection()).deleteMany({});
 })
 test('get all users', async() => {
   const u = await new MongoUsersManager(database);
@@ -32,4 +32,10 @@ test('add user', async () => {
   expect(users.length).toBe(1);
   expect(users[0].email).toBe('test@test.com');
   expect(users[0].password).toBe('test');
+});
+test('user exists', async() => {
+  const u = await new MongoUsersManager(database);
+  await u.addUser('test@test.com', 'test');
+  const b = await u.userExists('test@test.com');
+  expect(b).toBe(true);
 });

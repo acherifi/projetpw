@@ -1,3 +1,3 @@
 run api server:
-  - npm start optionnal:< mongo db adress >
+  - npm start optional:< mongo db adress >
 server address: localhost:4000
