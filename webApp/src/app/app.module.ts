@@ -20,14 +20,12 @@ import { MovieDialogComponent } from './movie-dialog/movie-dialog.component';
 import { SortService} from '../services/SortService';
 import {APIToolService} from '../services/APIToolService';
 import { HomeComponent } from './home/home.component';
-import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { AccountformComponent } from './accountform/accountform.component';
 
 const appRoutes: Routes = [
   {path: '', component: HomeComponent},
   {path: 'account', component: AccountformComponent},
   {path: 'app', component: NavbarComponent},
-  { path: '**', component: PageNotFoundComponent }
 ];
 
 @NgModule({
@@ -44,7 +42,6 @@ const appRoutes: Routes = [
     SelectNumbersComponent,
     MovieDialogComponent,
     HomeComponent,
-    PageNotFoundComponent,
     AccountformComponent,
   ],
   imports: [
