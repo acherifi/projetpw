@@ -23,7 +23,7 @@ import { HomeComponent } from './home/home.component';
 import { AccountformComponent } from './accountform/accountform.component';
 
 const appRoutes: Routes = [
-  {path: '', component: HomeComponent},
+  {path: 'projetpw', component: HomeComponent},
   {path: 'account', component: AccountformComponent},
   {path: 'app', component: NavbarComponent},
 ];
