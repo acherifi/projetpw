@@ -28,6 +28,7 @@ export class AccountformComponent implements OnInit {
   nameCreateAccount = 'Sign up';
   nameConnect = 'Log in';
   errorMessage: Error = 0;
+  hidePassword: boolean;
 
   emailControl = new FormControl('', [Validators.required, Validators.email]);
   passwordControl = new FormControl('', [Validators.required, Validators.minLength(1)]);
@@ -38,6 +39,7 @@ export class AccountformComponent implements OnInit {
 
   async ngOnInit() {
     this.userService = await this.apiToolService.getUserService();
+    this.hidePassword = true;
   }
   async handlerClickCreate(answerMail, answerPwd) {
     if (await this.checkValidityEmailAndPassword()) {

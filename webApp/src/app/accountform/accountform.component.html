@@ -9,9 +9,9 @@
 
     <mat-form-field appearance="outline">
       <mat-label>{{labelPassword}}</mat-label>
-      <input matInput placeholder="{{placeholderInputPwd}}" [formControl]="passwordControl" [type]="hide ? 'password' : 'text'" required #pwd>
+      <input matInput placeholder="{{placeholderInputPwd}}" [formControl]="passwordControl" [type]="hidePassword ? 'password' : 'text'" required #pwd>
       <mat-error *ngIf="passwordControl.invalid">{{getErrorMessagePassword()}}</mat-error>
-      <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+      <mat-icon matSuffix (click)="hidePassword = !hidePassword">{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
     </mat-form-field>
   <span *ngIf='errorMessage !== 0'>
     <p>{{getErrorMessageInvalid()}}</p>
@@ -24,6 +24,7 @@
   </div>
 
 </div>
+
 
 
 

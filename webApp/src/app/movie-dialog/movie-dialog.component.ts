@@ -7,6 +7,7 @@ export interface DialogData {
   name: String;
   synopsis: String;
   buttons: IButton[];
+  poster: String;
 }
 
 @Component({
