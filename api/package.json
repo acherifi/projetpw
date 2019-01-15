@@ -7,11 +7,10 @@
   "license": "ISC",
   "scripts": {
     "start": "node src/index.js $1",
-    "test": "NODE_TLS_REJECT_UNAUTHORIZED=\"0\" jest --detectOpenHandles --forceExit $1"
+    "test": "NODE_TLS_REJECT_UNAUTHORIZED=\"0\" jest --detectOpenHandles --forceExit"
   },
   "dependencies": {
     "@types/jest": "^23.3.12",
-    "bcrypt": "^3.0.3",
     "body-parser": "1.18.3",
     "cors": "2.8.5",
     "es6-promise": "^4.2.5",
