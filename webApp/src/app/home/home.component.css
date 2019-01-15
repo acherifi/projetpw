@@ -23,13 +23,13 @@ button{
 }
 
 .mainImg {
-  height:100%;
-  width: 100%;
+  height:auto;
+  width: auto;
 }
 
 .intro{
   color: white;
-  font-size: 3vw;
+  font-size: 4vw;
 }
 
 .overlay{
