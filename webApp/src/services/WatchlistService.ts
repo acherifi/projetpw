@@ -1,9 +1,10 @@
 import { Watchlist} from './objects/Watchlist';
 
 export class WatchlistService {
-  public api_url = 'https://localhost:4000'; // default value;
-  private url = this.api_url + '/watchlist/';
-
+  public api_url: string;
+  constructor(api_url: string) {
+    this.api_url = api_url;
+  }
   async getWatchlistById(id: string): Promise<Watchlist> {
     const res = await this.doGetRequest(id);
     return await new Watchlist(res.movies, res.id);
@@ -26,8 +27,11 @@ export class WatchlistService {
     }
     return b;
   }
+  private async getUrl(): Promise<string> {
+    return this.api_url + '/watchlist/';
+  }
   private async doGetRequest(params: string) {
-    const result = await fetch(this.url + params, {
+    const result = await fetch(await this.getUrl() + params, {
       method: 'GET',
       headers: {
         Accept: 'application/json',
@@ -38,7 +42,7 @@ export class WatchlistService {
     return jsonResult;
   }
   private async doRequestWithData(method: string, params: string, data: {}): Promise<boolean> {
-    const result = await fetch(this.url + params, {
+    const result = await fetch(await this.getUrl() + params, {
       method: method,
       body: JSON.stringify(data),
       headers: {

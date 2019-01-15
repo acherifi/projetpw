@@ -3,9 +3,11 @@ import { WatchlistService } from './WatchlistService';
 import { CryptClass} from './CryptClass';
 
 export class UserService {
-  public api_url = 'https://localhost:4000'; // default value;
-  private url = this.api_url + '/users/';
+  public api_url: string;
   private keyLocalStorage = 'connectedUser';
+  constructor(api_url: string) {
+    this.api_url = api_url;
+  }
   async getUserByMail(email: string): Promise<User> {
     return await this.getUserById(email);
   }
@@ -14,7 +16,7 @@ export class UserService {
     if (resultRequest !== {}) {
       const user = await new User(resultRequest.email, resultRequest.password);
       await user.setId(id);
-      await user.setWatchlist(await (await new WatchlistService()).getWatchlistById(resultRequest.idwatch));
+      await user.setWatchlist(await (await new WatchlistService(this.api_url)).getWatchlistById(resultRequest.idwatch));
       return user;
     }
     return undefined;
@@ -26,7 +28,7 @@ export class UserService {
     for (let i = 0; i < resultRequest.length; ++i) {
       const user = await new User(resultRequest[i].email, resultRequest[i].password);
       await user.setId(resultRequest[i].id);
-      const watchlistService = await new WatchlistService();
+      const watchlistService = await new WatchlistService(this.api_url);
       const wlTempo = await watchlistService.getWatchlistById(resultRequest[i].idwatch);
       await user.setWatchlist(wlTempo);
       await users.push(user);
@@ -61,8 +63,11 @@ export class UserService {
     }
     return undefined;
   }
+  private async getUrl(): Promise<string> {
+    return this.api_url + '/users/';
+  }
   private async doGetRequest(params: string) {
-    const result = await fetch(this.url + params, {
+    const result = await fetch(await this.getUrl() + params, {
       method: 'GET',
       headers: {
         Accept: 'application/json',
@@ -73,7 +78,7 @@ export class UserService {
     return jsonResult;
   }
   private async doPostRequest(params: string, data: {}): Promise<boolean> {
-    const result = await fetch(this.url + params, {
+    const result = await fetch(await this.getUrl() + params, {
       method: 'POST',
       body: JSON.stringify(data),
       headers: {

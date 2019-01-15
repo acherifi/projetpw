@@ -3,9 +3,9 @@ import { IParam } from './objects/sortParameters/IParam';
 import { ParamInterval } from './objects/sortParameters/ParamInterval';
 
 export class MovieService {
-  public api_url = 'https://localhost:4000'; // default value
-  constructor() {
-
+  public api_url: string;
+  constructor(api_url: string) {
+    this.api_url = api_url;
   }
   async getMovieById(id: String): Promise<Movie> {
     const jsonResult = await this.doRequest( id);
