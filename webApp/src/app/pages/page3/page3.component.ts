@@ -19,7 +19,7 @@ import {IButton} from '../../button/IButton';
 })
 export class Page3Component extends AbstractPage implements OnInit {
   static this: any;
-  defaultCoordinate = [49.047808, -1.444621]; // Coutances
+  defaultCoordinate = [49.183333, -0.350000]; // Caen
   saveCoordinates: number[];
   constructor(protected sortService: SortService, protected apiToolService: APIToolService, protected dialog: MatDialog) {
     super(sortService, apiToolService, dialog);
