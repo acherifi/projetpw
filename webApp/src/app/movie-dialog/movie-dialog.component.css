@@ -12,9 +12,9 @@ div.infosContainer{
   margin-left: 3%;
 }
 
-p.textInfos{
+.textInfos{
   max-height: 400px;
-  overflow: auto;
+  overflow-y: scroll;
   margin-top: 0;
 }
 

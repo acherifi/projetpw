@@ -3,7 +3,9 @@
 <div class= "infos">
   <img src={{data.poster}} alt="">
   <div class="infosContainer">
-    <p class="textInfos" *ngFor="let k of keys">{{data[k]}}</p>
+    <div class="textInfos">
+        <p *ngFor="let k of keys">{{data[k]}}</p>
+    </div>
   </div>
 </div>
 
