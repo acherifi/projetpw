@@ -3,6 +3,7 @@ import {SortService} from '../../../services/SortService';
 import {AbstractSortBar} from '../AbstractSortBar';
 import { ParamReleaseDate } from '../../../services/objects/sortParameters/ParamReleaseDate';
 import { ParamGenre} from '../../../services/objects/sortParameters/ParamGenre';
+import { MatSelectionListChange } from '@angular/material';
 
 @Component({
   selector: 'app-sort-bar-page1',
@@ -43,9 +44,8 @@ export class SortBarPage1Component extends AbstractSortBar implements OnInit {
   getId(): number {
     return 1;
   }
-  async onChangeGenres(objectsFromSelect) {
+  async onChangeGenres(objectsFromSelect: MatSelectionListChange) {
     // c'est un handler commun à toutes les barres
     await SortBarPage1Component.this.onChangeGeneral(objectsFromSelect, async (value) => await new ParamGenre(value));
   }
-
 }

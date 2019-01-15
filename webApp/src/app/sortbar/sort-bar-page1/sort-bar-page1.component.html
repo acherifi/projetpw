@@ -1,2 +1,35 @@
-<app-select-names [data]="dataGenres" [handlerChange]="onChangeGenres"></app-select-names>
-<app-select-names [data]="dataReleaseDates" [handlerChange]="onChangeReleaseDates"></app-select-names>
+<mat-accordion>
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Trier par
+          </mat-panel-title>
+          <mat-panel-description>
+            Genre
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <mat-selection-list (selectionChange)="onChangeGenres($event)">
+            <mat-list-option *ngFor="let genre of dataGenres">
+              {{genre}}
+            </mat-list-option>
+          </mat-selection-list>
+      </mat-expansion-panel>
+</mat-accordion>
+
+<mat-accordion>
+  <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Trier par
+        </mat-panel-title>
+        <mat-panel-description>
+          Date de sortie
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <mat-selection-list (selectionChange)="onChangeReleaseDates($event)">
+          <mat-list-option *ngFor="let date of dataReleaseDates">
+            {{date}}
+          </mat-list-option>
+        </mat-selection-list>
+    </mat-expansion-panel>
+</mat-accordion>
