@@ -20,10 +20,7 @@ const DATA_BASE = 'cineweb';
 
 
 const app = express();
-https.createServer({
-  key: fs.readFileSync(__dirname+'/../ssl/server.key'),
-  cert: fs.readFileSync(__dirname+'/../ssl/server.crt'),
-}, app).listen(4000);
+app.listen(process.env.PORT || 5000);
 app.use(cors());
 app.use(bodyParser.json());
 app.use('/users', require('./users'));
