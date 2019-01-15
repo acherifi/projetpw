@@ -101,7 +101,6 @@ export abstract class AbstractPage {
     }
     await page.sortService.setTrueToAllRawDataMovies();
     await button.swapName();
-    await console.log('click add to watchlist');
   }
   protected abstract async clickOnAddToWatchlist(b: IButton);
 }

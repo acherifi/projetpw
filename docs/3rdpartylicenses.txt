@@ -1509,6 +1509,10 @@ MIT
 
 @angular/material/core
 
+@angular/material/list
+
+@angular/material/expansion
+
 @angular/material/select
 
 @angular/material/paginator

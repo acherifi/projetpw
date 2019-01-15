@@ -1,6 +1,7 @@
 import { Input } from '@angular/core';
 import { IParam } from '../../services/objects/sortParameters/IParam';
 import {SortService} from '../../services/SortService';
+import { MatSelectionListChange } from '@angular/material';
 
 
 export abstract class AbstractSortBar {
@@ -25,10 +26,11 @@ export abstract class AbstractSortBar {
     }
   }
 
-  async onChangeGeneral(objects, constructorParam) {
-    for (let i = 0; i < objects.options.length; ++i) {
-      const param = await constructorParam(objects.options[i].value);
-        if (!objects.options[i].selected) {
+  async onChangeGeneral(objects: MatSelectionListChange, constructorParam) {
+    const array = objects.source.options.toArray();
+    for (let i = 0; i < array.length; ++i) {
+      const param = await constructorParam(array[i].getLabel().trim());
+        if (!array[i].selected) {
           await this.removeParamFromService(param);
         } else {
           await this.addParamToService(param);
