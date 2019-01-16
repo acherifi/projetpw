@@ -34,15 +34,6 @@ describe('e2e temporaire', async () => {
         });
         const b = body.body.includes('Bienvenue sur Cineweb');
         expect(b).toBe(true);
-      /*
-      await clickByText('Log in');
-      await page.waitForNavigation({waitUntil: 'load'});
-      const linkHandlers = await page.$x('Log in');
-      const buttons = await document.getElementsByTagName('button');
-      console.log(buttons[0]);
-      const actualUrl = await page.url();
-      expect(actualUrl).toBe('https://localhost:4200');
-      */
   });
   afterAll(async () => {
     await browser.close();

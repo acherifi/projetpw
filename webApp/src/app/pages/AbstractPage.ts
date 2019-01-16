@@ -14,11 +14,13 @@ export abstract class AbstractPage {
   breakpoint = 6;
   loading = true;
   movies: Movie[] = null;
+  private buttonWatchlistMovieDialog: ButtonMovieDialog;
   protected defaultMovieInterval: ParamInterval = new ParamInterval('[0, 10[');
   protected currentInterval: ParamInterval;
   constructor(protected sortService: SortService, protected apiToolService: APIToolService,  protected dialog: MatDialog) {
     this.sortService.addObserversHandlers(this.update);
     this.currentInterval = this.defaultMovieInterval;
+    this.buttonWatchlistMovieDialog = new ButtonMovieDialog('Add to Watchlist', 'Remove from Watchlist');
   }
   handleResponsive(event: any) {
     this.breakpoint = 6;
@@ -45,8 +47,9 @@ export abstract class AbstractPage {
     await this.sortService.setTrueToRawDataMovies(await this.getId());
   }
   async onClickMovie(index: number) {
+    const test = await this.getDataToPrintOnMovieDialog(this.movies[index]);
     const dialogRef = this.dialog.open(MovieDialogComponent,
-       await this.getDataToPrintOnMovieDialog(this.movies[index]));
+       test);
   }
   abstract getId(): number;
   async getDataToPrintOnMovieDialog(movie: Movie) {
@@ -56,17 +59,19 @@ export abstract class AbstractPage {
       poster: movie.getPosterLink(),
       releasedate: movie.getReleaseDate().toDateString(),
     }};
+
     const user: User = await (await this.apiToolService.getUserService()).getConnectedUser();
     const moviesIds: String[] = await (await (await user.getWatchlist()).getMoviesIds());
     const idStringMovie: String = '' + await movie.getId();
     const isInWatchlist = await moviesIds.findIndex(s => s === idStringMovie) !== -1;
 
-    const button = await new ButtonMovieDialog('Add to Watchlist', 'Remove from Watchlist', await movie.getId());
+    this.buttonWatchlistMovieDialog.setMovieId(await movie.getId());
     if (isInWatchlist) {
-      await button.swapName();
+      await this.buttonWatchlistMovieDialog.swapName();
     }
-    button.setHandlerClick(this.clickOnAddToWatchlist);
-    data.data['buttons'] = await [button];
+    this.buttonWatchlistMovieDialog.setHandlerClick(this.clickOnAddToWatchlist);
+    data.data['buttons'] = await [this.buttonWatchlistMovieDialog];
+
     return data;
   }
   /**

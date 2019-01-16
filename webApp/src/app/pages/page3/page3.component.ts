@@ -27,7 +27,7 @@ export class Page3Component extends AbstractPage implements OnInit {
     navigator.geolocation.getCurrentPosition(async (position) => {
       this.saveCoordinates = [position.coords.latitude, position.coords.longitude];
       }, async (error) => {
-        console.log('error', error);
+        console.log('error position', error);
       }, {enableHighAccuracy: false, maximumAge: Infinity, timeout: 5000});
   }
 
@@ -42,7 +42,6 @@ export class Page3Component extends AbstractPage implements OnInit {
     super.handleResponsive(window);
     try {
       const position = await this.getGeoPosition();
-      console.log(position);
     } catch (e) {
       console.log(e);
     }
