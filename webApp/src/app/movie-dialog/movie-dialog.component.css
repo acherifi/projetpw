@@ -3,6 +3,10 @@ img{
   border-radius: 20px;
 }
 
+p{
+  font-family: 'Roboto';
+}
+
 div.infos{
   display: inline-flex;
   max-height: 400px;
