@@ -61,16 +61,20 @@ export class Page3Component extends AbstractPage implements OnInit {
   }
   async getDataToPrintOnMovieDialog(movie: Movie) {
     const data = await super.getDataToPrintOnMovieDialog(movie);
-    let showTimes = 'Show times:' ;
+    let showTimes = '';
     const theaters: Theater[] = await movie.getTheaters();
+    let currentCity;
     for (let i = 0; i < theaters.length; ++i) {
-      showTimes += await theaters[i].getCity() + ' : ' + await theaters[i].getName() + ':\n';
+      if (currentCity !== theaters[i].getCity()) {
+        currentCity = theaters[i].getCity();
+        showTimes += currentCity + ': <br>';
+      }
+      showTimes += await theaters[i].getName() + '<br>';
       const shows: Show[] = await theaters[i].getShows();
       for (let j = 0; j < shows.length; j++) {
-        showTimes += await shows[j].toString();
+        showTimes += await shows[j].toString() + '<br>';
       }
-      showTimes += '\n';
-
+      showTimes += '<br>';
     }
     data.data['showtime'] = showTimes;
     return data;

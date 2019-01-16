@@ -19,7 +19,9 @@ export class Show {
     return this.type;
   }
   toString(): String {
-    let res = 'date: ' + this.date + ' version: ' + this.version + ' type: ' + this.type + ' showTime: ';
+    // Converting to locale and removing timezone
+    const formattedDate = this.date.toLocaleString().split(' ')[0];
+    let res = 'date: ' + formattedDate + ' version: ' + this.version + ' type: ' + this.type + ' showTime: ';
     for (let i = 0; i < this.shows.length; ++i) {
       res += this.shows[i] + ' ';
     }
