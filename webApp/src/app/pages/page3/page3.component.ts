@@ -19,7 +19,7 @@ import {IButton} from '../../button/IButton';
 })
 export class Page3Component extends AbstractPage implements OnInit {
   static this: any;
-  defaultCoordinate = [49.047808, -1.444621]; // Coutances
+  defaultCoordinate = [49.183333, -0.350000]; // Caen
   saveCoordinates: number[];
   constructor(protected sortService: SortService, protected apiToolService: APIToolService, protected dialog: MatDialog) {
     super(sortService, apiToolService, dialog);
@@ -27,7 +27,7 @@ export class Page3Component extends AbstractPage implements OnInit {
     navigator.geolocation.getCurrentPosition(async (position) => {
       this.saveCoordinates = [position.coords.latitude, position.coords.longitude];
       }, async (error) => {
-        console.log('error', error);
+        console.log('error position', error);
       }, {enableHighAccuracy: false, maximumAge: Infinity, timeout: 5000});
   }
 
@@ -42,7 +42,6 @@ export class Page3Component extends AbstractPage implements OnInit {
     super.handleResponsive(window);
     try {
       const position = await this.getGeoPosition();
-      console.log(position);
     } catch (e) {
       console.log(e);
     }

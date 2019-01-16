@@ -14,7 +14,6 @@ module.exports = class MongoUsersManager {
         idwatch: newIdWathlist});
       return true;
     } else {
-      console.log('user existe déjà');
       return false;
     }
   }

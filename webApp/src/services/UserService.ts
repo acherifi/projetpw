@@ -5,6 +5,7 @@ import { CryptClass} from './CryptClass';
 export class UserService {
   public api_url: string;
   private keyLocalStorage = 'connectedUser';
+  private localUser: User;
   constructor(api_url: string) {
     this.api_url = api_url;
   }
@@ -49,6 +50,7 @@ export class UserService {
 
   }
   async setConnectedUser(user: User) {
+    this.localUser = user;
     if (user === undefined) {
       localStorage.setItem(this.keyLocalStorage, undefined);
     } else {
@@ -56,12 +58,13 @@ export class UserService {
     }
   }
   async getConnectedUser(): Promise<User> {
-    const localUserId: string = await localStorage.getItem(this.keyLocalStorage);
-    if (localUserId !== 'undefined') {
-      const localUser: User = await this.getUserById(localUserId);
-      return localUser;
+    if (this.localUser === undefined) {
+      const localUserId: string = await localStorage.getItem(this.keyLocalStorage);
+      if (localUserId !== 'undefined') {
+        this.localUser = await this.getUserById(localUserId);
+      }
     }
-    return undefined;
+    return this.localUser;
   }
   private async getUrl(): Promise<string> {
     return this.api_url + '/users/';

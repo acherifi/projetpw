@@ -6,11 +6,10 @@ export class ButtonMovieDialog implements IButton {
   private nameToPrint: string;
   private movieId: Number;
   private clickHandler: HandlerButtonClick;
-  constructor (name: string, secondName: string, movieId: Number) {
+  constructor (name: string, secondName: string) {
     this.name = name;
     this.secondName = secondName;
     this.nameToPrint = name;
-    this.movieId = movieId;
   }
   async swapName() {
     if (this.nameToPrint === this.name) {
@@ -27,6 +26,9 @@ export class ButtonMovieDialog implements IButton {
   }
   getHandlerClick(): HandlerButtonClick {
     return this.clickHandler;
+  }
+  setMovieId(movieId: Number) {
+    this.movieId = movieId;
   }
   setHandlerClick(handler: HandlerButtonClick) {
     this.clickHandler = handler;
