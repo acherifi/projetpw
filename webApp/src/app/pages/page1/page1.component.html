@@ -9,7 +9,7 @@
   <div *ngIf="movies">
     <div *ngFor="let movie of movies; let i=index">
         <mat-grid-tile (click)="onClickMovie(i)">
-            <img src={{movie.posterLink}} alt="">
+            <img class="img-card" src={{movie.posterLink}} alt="">
             <mat-grid-tile-footer>{{movie.title}}</mat-grid-tile-footer>
         </mat-grid-tile>
     </div>
