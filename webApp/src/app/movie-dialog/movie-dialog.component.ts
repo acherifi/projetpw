@@ -26,7 +26,7 @@ export class MovieDialogComponent implements OnInit {
   async ngOnInit() {
     this.buttons = this.data.buttons;
     this.keys = Object.keys(this.data);
-    this.keys = this.keys.filter(x => x !== 'poster' && x !== 'buttons');
+    this.keys = this.keys.filter(x => x !== 'poster' && x !== 'buttons' && x !== 'id');
   }
 
 }

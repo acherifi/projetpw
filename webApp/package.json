@@ -65,7 +65,8 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "ng lint"
+      "pre-commit": "ng lint",
+      "pre-push": "ng build --prod --output-path ../docs --base-href https://acherifi.github.io/projetpw/ && cp ../docs/index.html ../docs/404.html && git add ../docs && git commit -a -m \"update site\" " 
     }
   },
   "engines": {

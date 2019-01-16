@@ -40,9 +40,9 @@ export class Page1Component extends AbstractPage implements OnInit {
     const data = await super.getDataToPrintOnMovieDialog(movie);
     let actors = 'Actors:';
     await movie.getActors().forEach(async actor => {
-      actors += actor;
+      actors += actor + ', ';
     });
-    data.data['actors'] = actors;
+    data.data['actors'] = actors.slice(0, actors.length - 1);
     data.data['id'] = 'id' + await movie.getId();
 
     return data;
