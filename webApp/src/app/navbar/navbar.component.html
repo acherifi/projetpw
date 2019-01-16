@@ -15,11 +15,15 @@
     <app-page3></app-page3>
   </mat-tab>
 
-  <mat-tab>
+  <mat-tab disabled >
     <ng-template mat-tab-label>
       <button mat-flat-button *ngFor="let button of buttons" (click)="disconnectHandler()">
         {{button}}
       </button>
     </ng-template>
   </mat-tab>
+ 
+  
+  
 </mat-tab-group>
+  
