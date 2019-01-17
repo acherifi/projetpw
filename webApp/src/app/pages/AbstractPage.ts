@@ -101,6 +101,7 @@ export abstract class AbstractPage {
       await (await page.apiToolService.getWatchListService()).addMovieToWatchlist(await user.getWatchlist(), ''
       + await button.getMovieId());
     }
+    await page.loadRawMovies(page.currentInterval);
     await page.sortService.setTrueToAllRawDataMovies();
     await button.swapName();
   }

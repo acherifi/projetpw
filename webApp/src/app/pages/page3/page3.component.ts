@@ -83,11 +83,11 @@ export class Page3Component extends AbstractPage implements OnInit {
       const tempoMovies =  await (await this.apiToolService.getMovieService()).getMoviesByIdsWithShowTimes(moviesIds,
         interval, params);
       const movies = [];
-      await tempoMovies.forEach(async movie => {
-        if (await movie.getTheaters().length > 0) {
-          await movies.push(movie);
+      for (let i = 0; i < tempoMovies.length; ++i) {
+        if ((await tempoMovies[i].getTheaters()).length > 0) {
+          await movies.push(tempoMovies[i]);
         }
-      });
+      }
       await this.sortService.setRawMovies(await this.getId(), movies);
     });
     if (this.saveCoordinates !== undefined) {
