@@ -40,15 +40,14 @@ export abstract class AbstractPage {
     this.loading = true;
     const start = event.pageIndex * event.pageSize;
     const end = start + event.pageSize - 1;
-    this.currentInterval = await new
-    ParamInterval(`[${start}, ${end}]`);
+    this.currentInterval = await new ParamInterval(`[${start}, ${end}]`);
     await this.loadRawMovies(this.currentInterval);
     await this.sortService.setTrueToSortedParametersChanged(await this.getId());
     await this.sortService.setTrueToRawDataMovies(await this.getId());
   }
   async onClickMovie(index: number) {
     const test = await this.getDataToPrintOnMovieDialog(this.movies[index]);
-    const dialogRef = this.dialog.open(MovieDialogComponent,
+    this.dialog.open(MovieDialogComponent,
        test);
   }
   abstract getId(): number;
@@ -66,9 +65,7 @@ export abstract class AbstractPage {
     const isInWatchlist = await moviesIds.findIndex(s => s === idStringMovie) !== -1;
 
     this.buttonWatchlistMovieDialog.setMovieId(await movie.getId());
-    if (isInWatchlist) {
-      await this.buttonWatchlistMovieDialog.swapName();
-    }
+    this.buttonWatchlistMovieDialog.setSwap(isInWatchlist);
     this.buttonWatchlistMovieDialog.setHandlerClick(this.clickOnAddToWatchlist);
     data.data['buttons'] = await [this.buttonWatchlistMovieDialog];
 

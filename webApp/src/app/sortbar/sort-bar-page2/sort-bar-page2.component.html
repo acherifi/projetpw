@@ -1,2 +1,34 @@
-<app-select-names [data]="dataGenres" [handlerChange]="onChangeGenres"></app-select-names>
-<app-select-names [data]="dataRates" [handlerChange]="onChangeRates"></app-select-names>
+<mat-accordion>
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{indicationBar}}
+          </mat-panel-title>
+          <mat-panel-description>
+            Genre
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <mat-selection-list (selectionChange)="onChangeGenres($event)">
+            <mat-list-option *ngFor="let genre of dataGenres">
+              {{genre}}
+            </mat-list-option>
+          </mat-selection-list>
+      </mat-expansion-panel>
+</mat-accordion>
+<mat-accordion>
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{indicationBar}}
+          </mat-panel-title>
+          <mat-panel-description>
+            Notes
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <mat-selection-list (selectionChange)="onChangeRates($event)">
+            <mat-list-option *ngFor="let rate of dataRates">
+              {{rate}}
+            </mat-list-option>
+          </mat-selection-list>
+      </mat-expansion-panel>
+</mat-accordion>

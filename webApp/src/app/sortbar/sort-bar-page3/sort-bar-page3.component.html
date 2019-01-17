@@ -1,3 +1,59 @@
+<!--
 <app-select-names [data]="dataGenres" [handlerChange]="onChangeGenres"></app-select-names>
 <app-select-names [data]="dataCities" [handlerChange]="onChangeCities"></app-select-names>
 <app-select-names [data]="dataCinemaNames" [handlerChange]="onChangeCinemaNames"></app-select-names>
+
+-->
+<mat-accordion>
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{indicationBar}}
+          </mat-panel-title>
+          <mat-panel-description>
+            Genre
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <mat-selection-list (selectionChange)="onChangeGenres($event)">
+            <mat-list-option *ngFor="let genre of dataGenres">
+              {{genre}}
+            </mat-list-option>
+          </mat-selection-list>
+      </mat-expansion-panel>
+</mat-accordion>
+<mat-accordion>
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{indicationBar}}
+          </mat-panel-title>
+          <mat-panel-description>
+            Ville
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <mat-selection-list (selectionChange)="onChangeCities($event)">
+            <mat-list-option *ngFor="let city of dataCities">
+              {{city}}
+            </mat-list-option>
+          </mat-selection-list>
+      </mat-expansion-panel>
+</mat-accordion>
+<div *ngIf='dataCinemaNames !== undefined && dataCinemaNames.length !== 0'>
+    <mat-accordion >
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                {{indicationBar}}
+              </mat-panel-title>
+              <mat-panel-description>
+                Cinéma
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <mat-selection-list (selectionChange)="onChangeCinemaNames($event)">
+                <mat-list-option *ngFor="let name of dataCinemaNames">
+                  {{name}}
+                </mat-list-option>
+              </mat-selection-list>
+          </mat-expansion-panel>
+    </mat-accordion>
+</div>

@@ -6,6 +6,7 @@ import { MatSelectionListChange } from '@angular/material';
 
 export abstract class AbstractSortBar {
   @Input() dataGenres: string[];
+  indicationBar = 'Trier par';
   constructor(protected sortService: SortService) {
     this.dataGenres = [''];
   }

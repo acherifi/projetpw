@@ -24,30 +24,22 @@ export class Page3Component extends AbstractPage implements OnInit {
   constructor(protected sortService: SortService, protected apiToolService: APIToolService, protected dialog: MatDialog) {
     super(sortService, apiToolService, dialog);
     Page3Component.this = this;
-    navigator.geolocation.getCurrentPosition(async (position) => {
-      this.saveCoordinates = [position.coords.latitude, position.coords.longitude];
-      }, async (error) => {
-        console.log('error position', error);
-      }, {enableHighAccuracy: false, maximumAge: Infinity, timeout: 5000});
-  }
-
-  getGeoPosition() {
-    return new Promise((res, rej) => {
-      navigator.geolocation.getCurrentPosition(res, rej, {enableHighAccuracy: false, maximumAge: Infinity, timeout:
-        5000});
-    });
   }
 
   async ngOnInit() {
     super.handleResponsive(window);
-    try {
-      const position = await this.getGeoPosition();
-    } catch (e) {
-      console.log(e);
-    }
-    await this.loadRawMovies(this.defaultMovieInterval);
-    await this.sortService.setTrueToRawDataMovies(await this.getId());
-    await this.sortService.setTrueToSortedParametersChanged(await this.getId());
+    await navigator.geolocation.getCurrentPosition(async (position) => {
+      this.saveCoordinates = [position.coords.latitude, position.coords.longitude];
+      await this.loadRawMovies(this.defaultMovieInterval);
+      await this.sortService.setTrueToRawDataMovies(await this.getId());
+      this.loading = false;
+      }, async (error) => {
+        await console.log('error position', error);
+        this.saveCoordinates = this.defaultCoordinate;
+        await this.loadRawMovies(this.defaultMovieInterval);
+        await this.sortService.setTrueToRawDataMovies(await this.getId());
+        this.loading = false;
+      }, {enableHighAccuracy: false, maximumAge: Infinity, timeout: 10000});
   }
   /**
    * In the design pattern Observer, this is notify(), called by SortService.
@@ -98,10 +90,8 @@ export class Page3Component extends AbstractPage implements OnInit {
       });
       await this.sortService.setRawMovies(await this.getId(), movies);
     });
-    if (this.saveCoordinates === undefined) {
-      await loadRawMoviesPrivate(this.defaultCoordinate[0], this.defaultCoordinate[1]);
-    } else {
-        await loadRawMoviesPrivate(this.saveCoordinates[0], this.saveCoordinates[1]);
+    if (this.saveCoordinates !== undefined) {
+      await loadRawMoviesPrivate(this.saveCoordinates[0], this.saveCoordinates[1]);
     }
   }
 
