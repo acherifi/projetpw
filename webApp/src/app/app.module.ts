@@ -14,8 +14,6 @@ import { Page3Component } from './pages/page3/page3.component';
 import { SortBarPage1Component } from './sortbar/sort-bar-page1/sort-bar-page1.component';
 import { SortBarPage2Component } from './sortbar/sort-bar-page2/sort-bar-page2.component';
 import { SortBarPage3Component } from './sortbar/sort-bar-page3/sort-bar-page3.component';
-import { SelectNamesComponent } from './sortbar/sorttools/select-names/select-names.component';
-import { SelectNumbersComponent } from './sortbar/sorttools/select-numbers/select-numbers.component';
 import { MovieDialogComponent } from './movie-dialog/movie-dialog.component';
 import { SortService} from '../services/SortService';
 import {APIToolService} from '../services/APIToolService';
@@ -38,8 +36,6 @@ const appRoutes: Routes = [
     SortBarPage1Component,
     SortBarPage2Component,
     SortBarPage3Component,
-    SelectNamesComponent,
-    SelectNumbersComponent,
     MovieDialogComponent,
     HomeComponent,
     AccountformComponent,
